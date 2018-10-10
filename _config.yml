@@ -84,11 +84,11 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 ## Friends
 friends: [
     {
-        title: "Bean Tech",
-        href: "http://beantech.org"
+        title: "my CSDN blog",
+        href: "https://blog.csdn.net/cuixing001"
     },{
-        title: "Kaijun's Blog",
-        href: "http://blog.kaijun.rocks"
+        title: "wei yang's Blog",
+        href: "https://godweiyang.com/"
     },{
         title: "Hux Blog",
         href: "http://huangxuan.me"
@@ -113,10 +113,10 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
 
-# Writing
+# Writing # Transform title into titlecase
 new_post_name: :title.md # File name of new posts
 default_layout: post
-titlecase: false # Transform title into titlecase
+titlecase: true 
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
