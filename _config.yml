@@ -31,11 +31,12 @@ signature-img: img/signature/BeanTechSign-white.png
 # SNS settings
 # RSS: false
 # weibo_username:     Demonbaneen
-zhihu_username: 15012753261
+zhihu_username: cui-xing-xing-97/activities
 github_username: cuixing158
 # twitter_username:   Demonbane_x
 #facebook_username:  YenYuHsuan
-linkedin_username:  1229261804@qq.com
+linkedin_username:  星星-崔-523744113/
+csdn_username: cuixing001
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
