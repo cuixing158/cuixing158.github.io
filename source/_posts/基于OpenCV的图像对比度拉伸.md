@@ -18,6 +18,7 @@ catagories:
 假如有一副比较暗的图像，亮度像素等级普遍在10左右，而我希望的图像均值avg2=25左右波动，有一种很简单的
 想法是直接把原图像所有像素加上15就可以了，但是问题是对比度变得比较差！这时候就需要图像拉伸/增强。下面给出算法步骤：
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$\int_a^b f(x)\mathrm{d}x$$
 **1**、设原始图像矩阵为$\left(\begin{array}{cc} A=\sin\left(x\right) & A=\sin\left(y\right) \end{array}\right))$，其像素范围在[minV,maxV],均值为avg1，目标平均均值为C。
 则变换到均值为C的增强矩阵B(x,y)=A(x,y)+C-avg1,其像素范围为[minV+C-avg1,maxV+C-avg1]
