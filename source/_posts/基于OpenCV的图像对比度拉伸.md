@@ -18,7 +18,7 @@ catagories:
 假如有一副比较暗的图像，亮度像素等级普遍在10左右，而我希望的图像均值avg2=25左右波动，有一种很简单的
 想法是直接把原图像所有像素加上15就可以了，但是问题是对比度变得比较差！这时候就需要图像拉伸/增强。下面给出算法步骤：
 
-**1**、设原始图像矩阵为<img src="http://chart.googleapis.com/chart?cht=tx&chl= \left(\begin{array}{cc} A=\sin\left(x\right) & A=\sin\left(y\right) \end{array}\right)" style="border:none;">，其像素范围在[minV,maxV],均值为avg1，目标平均均值为C。
+**1**、设原始图像矩阵为A=A(x,y)，其像素范围在[minV,maxV],均值为avg1，目标平均均值为C。
 则变换到均值为C的增强矩阵B(x,y)=A(x,y)+C-avg1,其像素范围为[minV+C-avg1,maxV+C-avg1]
 **2**、计算拉伸因子alpha，根据尽可能把像素拉伸到最大范围（对比度达到最大），分两种情况计算并比较，
 在均值C不变的情况下，最小值minV+C-avg1到C之间的拉伸因子为alhpa1=(C-0)/(C-(minV+C-avg1));同理，
