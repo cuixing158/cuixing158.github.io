@@ -27,3 +27,5 @@ git pull origin my_blog
 拉取远程的写博客材料到本地
 
 3、写完博客，记住把本地博客材料同步到远程分支my_blog，方便其他电脑端更新博客再次使用。
+
+写博客最好在https://www.mdeditor.com/在线写好markdown文件，公式在https://www.codecogs.com/latex/eqneditor.php编辑用生成的HTML(Edit)
