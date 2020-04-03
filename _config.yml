@@ -176,7 +176,8 @@ sitemap:
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+## 原来的repository: https://github.com/cuixing158/cuixing158.github.io.git
 deploy:
   type: git
-  repository: https://github.com/cuixing158/cuixing158.github.io.git
+  repository: git@github.com:cuixing158/cuixing158.github.io.git
   branch: master
