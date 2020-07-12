@@ -37,7 +37,7 @@ dlnet = dlnetwork(newlg); % take long time ???
 
                                                  <--
 **Please drag & drop an image file here**
-Filename: **test_images/image_0.png**
+Filename: **batchnorm_forward_predict/image_0.png**
 If you want to set the image size use the following command
 <img src=" alt="attach:cat" title="attach:cat" width=500px>
 -->
