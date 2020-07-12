@@ -17,8 +17,6 @@ catagories:
 
 
 
-For convenience, only observe the output features  of the first  convolution layer and bathhorm layer of resnet50,We first take the [resnet50](https://www.mathworks.com/help/deeplearning/ref/resnet50.html?s_tid=srchtitle) network provided by matlab as an example to illustrate, convert to [dlnetwork](https://www.mathworks.com/help/deeplearning/ref/dlnetwork.html?s_tid=srchtitle) and compare.
-
 
 
 
