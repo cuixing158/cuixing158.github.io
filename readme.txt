@@ -29,3 +29,6 @@ git pull origin my_blog
 3、写完博客，记住把本地博客材料同步到远程分支my_blog，方便其他电脑端更新博客再次使用。
 
 写博客最好在https://www.mdeditor.com/在线写好markdown文件，公式在https://www.codecogs.com/latex/eqneditor.php编辑用生成的HTML(Edit)
+
+hexo g出现报错：
+npm WARN deprecated hxo-bunyan@2.0.0: Please see https://github.com/hexojs/hexo-bunyan/issues/17，将npm install -g hexo-cli改成npm install -g hexo-log
