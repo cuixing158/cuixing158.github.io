@@ -1,17 +1,20 @@
-  
-# Why are the features obtained by "predict" and "forward" function very different?
-> **author: cuixingxing  **
+---
+title: Why are the features obtained by "predict" and "forward" function very different?
+catalog: true
+date: 2020-07-11 08:25:53
+subtitle: 
+header-img: "shenzhen_zoo.jpg"
+tags: 
+- batchnorm
+- matlab
+catagories: 
+- matlab
+- CNN
+---
+    
 
 
-> **email:cuixingxing150@gmail.com**
-
-
-> **date:2020/7/11**
-
-
-
-
-According to official instructions, "[forward](https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.forward.html)" is used for inference during the network training phase, and "[predict](https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.predict.html)" is used for inference during the network prediction phase.But there are a large number of networks used by the batchnorm layer,the features of forward and predict are very different.
+> According to official instructions, "[forward](https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.forward.html)" is used for inference during the network training phase, and "[predict](https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.predict.html)" is used for inference during the network prediction phase.But there are a large number of networks used by the batchnorm layer,the features of forward and predict are very different.
 
 
 
@@ -33,12 +36,7 @@ dlnet = dlnetwork(newlg); % take long time ???
   
 
 
-                                                 <--
-**Please drag & drop an image file here**
-Filename: **test_images/image_0.png**
-If you want to set the image size use the following command
-<img src=" alt="attach:cat" title="attach:cat" width=500px>
--->
+                                                 ![image_0.png](test_images/image_0.png)
 
 
 # simple case:
@@ -356,12 +354,11 @@ batchnorm() is internally calculated as ,the normalized activation is calculated
 
 
 
-```math
-\overset{\wedge }{x_i } =\frac{x_i -\mu_c }{\sqrt{{\sigma_c }^2 +\varepsilon }}
-```
+<img src="https://latex.codecogs.com/gif.latex?\overset{\wedge&space;}{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;+\varepsilon&space;}}"/>
 
 
-where $x_i$ is the input activation, $\mu_c$ (`mu`) and ${\sigma_c }^2$ (`sigmaSq`) are the per-channel mean and variance, respectively, and $\varepsilon$ is a small constant.
+
+where <img src="https://latex.codecogs.com/gif.latex?\inline&space;x_i"/> is the input activation, <img src="https://latex.codecogs.com/gif.latex?\inline&space;\mu_c"/> (`mu`) and <img src="https://latex.codecogs.com/gif.latex?\inline&space;{\sigma_c&space;}^2"/> (`sigmaSq`) are the per-channel mean and variance, respectively, and <img src="https://latex.codecogs.com/gif.latex?\inline&space;\varepsilon"/> is a small constant.
 
 
 
@@ -370,12 +367,11 @@ The normalized activation is offset and scaled according to the following formul
 
 
 
-```math
-y_i =\gamma \overset{\wedge }{x_i } +\beta
-```
+<img src="https://latex.codecogs.com/gif.latex?y_i&space;=\gamma&space;\overset{\wedge&space;}{x_i&space;}&space;+\beta"/>
 
 
-The offset $\beta$ and scale factor $\gamma$ are specified with the `offset` and `scaleFactor` arguments.
+
+The offset <img src="https://latex.codecogs.com/gif.latex?\inline&space;\beta"/> and scale factor <img src="https://latex.codecogs.com/gif.latex?\inline&space;\gamma"/> are specified with the `offset` and `scaleFactor` arguments.
 
 
 
@@ -426,12 +422,11 @@ Let's look at a formula that is calculated and updated manually according to the
 
 
 
-```math
-s_n ={\phi s}_x +\left(1-\phi \right)s_{n-1}
-```
+<img src="https://latex.codecogs.com/gif.latex?s_n&space;={\phi&space;s}_x&space;+\left(1-\phi&space;\right)s_{n-1}"/>
 
 
-where $s_n$ is the statistic computed over several mini-batches, $s_x$ is the per-channel statistic of the current mini-batch, and $\phi$ is the decay value for the statistic.
+
+where <img src="https://latex.codecogs.com/gif.latex?\inline&space;s_n"/> is the statistic computed over several mini-batches, <img src="https://latex.codecogs.com/gif.latex?\inline&space;s_x"/> is the per-channel statistic of the current mini-batch, and <img src="https://latex.codecogs.com/gif.latex?\inline&space;\phi"/> is the decay value for the statistic.
 
 
 
