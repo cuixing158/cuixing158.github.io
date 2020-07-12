@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/me.jpg">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          目标检测中AP的计算，你真的会了吗？ - TheMatrix | star
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2020/02/20/目标检测中AP的计算，你真的会了吗/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('photo.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
+                            
+                              <a class="tag" href="/tags/#目标检测" title="目标检测">目标检测</a>
+                            
+                        </div>
+                        <h1>目标检测中AP的计算，你真的会了吗？</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by TheMatrix on
+                            2020-02-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">崔星星</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文直接跳过前面若干基础概念，前提需弄懂TP,FP,FN,TN,精确率，召回率，IOU等，具体可以参照文后Reference，下面进入正题，边讲述边实现，拒绝只谈不做和只做不谈。相比前人代码，本实现思路简洁，通用有效，最后根据官方现成函数计算AP进行对比。</p>
+</blockquote>
+<h2><span id="一-引言案例">一、引言案例</span></h2>
+<p>加载groundTruth数据和某算法预测的目标检测框</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load calmAP.mat <span class="comment">% 包含检测值和groundTruth</span></span><br></pre></td></tr></table></figure>
+<p>显示groundTruth，即真值，在图中标注为tennis、tennisRacket两类。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gTruth</span><br></pre></td></tr></table></figure>
+<p><img src="1.jpg" alt="img"><br>
+表格中第一列为图片路径名字，第二列为“tennis”的ROI，第三列为“tennisRacket”的ROI，M*4大小，每行为[x,y,width,height]。从表格中可以看出这里只用了3张照片，为简便起见，下面3张图只标注了有限数量的网球和网球拍两种目标。<br>
+<img src="2.jpg" alt="img"><br>
+<img src="3.jpg" alt="img"><br>
+<img src="4.jpg" alt="img"><br>
+某目标检测算法对上面3张图像的检测结果统计如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">detectionResults</span><br></pre></td></tr></table></figure>
+<p><img src="5.jpg" alt="img"><br>
+现把其中一幅图像检测结果(predictTennis、predictRacket)和真值(tennis、tennisRacket)画到一张图中如下：<br>
+<img src="6.jpg" alt="img"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groundTruthData = gTruth(:,<span class="number">2</span>:<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="7.jpg" alt="img"></p>
+<h2><span id="二-问答">二、问答</span></h2>
+<p><strong>为什么目标检测算法要选取AP或者mAP来评估性能优劣？而不是准确率(accuracy)/精确率(precision)/召回率(recall)？</strong><br>
+因为目标检测算法如果只关注某一个单一指标，如精确率，精确率在某种算法下改变其阈值可以达到100%（如判断球场上的球员，只要符合移动的物体都可以当作球员，此时很多目标都会当作球员，包括球，移动的任何物体，精确率非常高，但是召回率很低），这样就造成了算法无法比较。综合考虑，既要获取较高的精确率也要获取较高的召回率。这时可以考虑在二维图上很方便绘制出PR曲线，每种算法每种检测的目标类型都可以绘制独立的一条曲线，但问题是单纯看曲线也很难比较算法的综合优劣，故而考虑曲线下的面积AP来计算，面积越接近1性能越好。曲线下的面积理解为不同召回值的情况下所有精度的平均值。</p>
+<p><strong>为什么计算AP的过程中要按照检测框的预测分数从大到小排序？</strong><br>
+因为预测分数大小与判断为TP或者FP有非常大的概率关系，实际判别以IOU判断，先以大概率的进行PR曲线求点，这种大概率体现在所有的检测框——对应曲线上的点（横坐标为召回率，纵坐标为精确率）整体更接近坐标(1,1)，远离(0,0)点，后面概率小的检测框（曲线上的点）对整个比重较小。试想，如果不是按照预测分数大小排序，乱序排列，随着检测框的逐步增加，召回率也正常持续增加，精确率有很大的不稳定性（概率上看检测为TP的情况是随机性的）。</p>
+<h2><span id="三-算法核心步骤">三、算法核心步骤</span></h2>
+<p>由于非常不方便书写公式，故截图代替<br>
+<img src="8.jpg" alt="img"></p>
+<h3><span id="注意误点">注意误点：</span></h3>
+<p>1、AP即Average Precision，并不是指每张图像求取单个类别的Precision，然后对所有图片求平均！而是在单个类别的召回值从0变化到1的所有精度值平均值！<br>
+2、评估没有accuracy，因为没有TN，这不同于分类任务评估。<br>
+3、步骤6中插值方法不是线性插值，插值点的精度值是不小于该插值点所有召回率的精度值的最大者！</p>
+<h2><span id="四-计算">四、计算</span></h2>
+<p>方法一，根据文后参考文献方法计算</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">throushold_IOU = <span class="number">0.5</span>;</span><br><span class="line">[averagePrecision,precision,recall] = getAP(detectionResults,groundTruthData,throushold_IOU);</span><br></pre></td></tr></table></figure>
+<p><img src="9.jpg" alt="img"><br>
+<img src="10.jpg" alt="img"><br>
+方法二，调用系统函数求取</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">throushold_IOU = <span class="number">0.5</span>;</span><br><span class="line">[averagePrecision,precision,recall] = evaluateDetectionPrecision(detectionResults,groundTruthData,throushold_IOU)</span><br></pre></td></tr></table></figure>
+<p><img src="11.jpg" alt="img"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">figure;</span><br><span class="line">plot(recall&#123;<span class="number">1</span>&#125;,precision&#123;<span class="number">1</span>&#125;,<span class="string">'bo-'</span>);</span><br><span class="line">title([<span class="string">'PR curve,tennis AP:'</span>,num2str(averagePrecision(<span class="number">1</span>))]);xlabel(<span class="string">'recall'</span>);ylabel(<span class="string">'precision'</span>);grid on;</span><br><span class="line">legend(&#123;<span class="string">'tennis'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="12.jpg" alt="img"><br>
+从上面两种方法对比可以看出，图像和数值上有略微区别，原因在于系统函数evaluateDetectionPrecision采用的细则策略有差异，其输出值precision和recall比检测数量多1，但这不影响整体使用评估，其上两种方法都正确。另外下面示例根据文献1提供的方法数据，用同样的11点插值方法，计算AP，验证结果一致性。</p>
+<h2><span id="五-示例">五、示例</span></h2>
+<p>根据参考文献1的典型示例，导入检测和groundTruth数据进行评测：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">load DetectionAndGT.mat <span class="comment">% 包含文献1的检测和groundTruth</span></span><br><span class="line">throushold_IOU = <span class="number">0.3</span>;</span><br><span class="line">[averagePrecision,precision,recall] = getAP(de,gt,throushold_IOU);</span><br></pre></td></tr></table></figure>
+<p><img src="13.jpg" alt="img"><br>
+根据图像结果和计算的AP值，与文献完全吻合，说明函数getAP()的计算的正确性。另与官方提供的python评估代码看，也说明代码简洁性、易操作性。附getAP()函数，每步严格按照上面提到的** “算法核心步骤” **7个步骤进行，方便理解。</p>
+<p>以上所有文件和数据已经放在<a href="https://drive.google.com/file/d/1gRaiU2NHEIXNCvVM0l8Uqp9hwQAFJfZt/view" target="_blank" rel="noopener">谷歌网盘</a>， <a href="https://pan.baidu.com/s/1fRBS8pN0y67E7W4RnB8eag" target="_blank" rel="noopener">百度网盘</a>， 提取码：ub8m，方便复现~</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[averagePrecision,precision,recall]</span> = <span class="title">getAP</span><span class="params">(detectionResults,groundTruthData,throushold_IOU)</span></span></span><br><span class="line"><span class="comment">% 实现评估目标检测算法的AP计算</span></span><br><span class="line"><span class="comment">% 输入：detectionResults table类型，同evaluateDetectionPrecision函数的输入用法</span></span><br><span class="line"><span class="comment">%       groundTruthData table类型，同evaluateDetectionPrecision函数的输入用法</span></span><br><span class="line"><span class="comment">%      throushold_IOU double类型，同evaluateDetectionPrecision函数的输入用法</span></span><br><span class="line"><span class="comment">% 输出：同evaluateDetectionPrecision函数的输出用法</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% author:cuixingxing 2020.2.19</span></span><br><span class="line"><span class="comment">% email:cuixingxing150@gmail.com</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"></span><br><span class="line">predictbBoxName = detectionResults.Properties.VariableNames&#123;<span class="number">1</span>&#125;; <span class="comment">% 获取用户自定义的检测框的名字，detectionResults必须是3列的table</span></span><br><span class="line">predictscoreName = detectionResults.Properties.VariableNames&#123;<span class="number">2</span>&#125;;<span class="comment">% 获取用户自定义的分数的名字</span></span><br><span class="line">predictlName = detectionResults.Properties.VariableNames&#123;<span class="number">3</span>&#125;;<span class="comment">% 获取用户自定义的检测标签的名字</span></span><br><span class="line"><span class="comment">% 初始化输出</span></span><br><span class="line">averagePrecision = <span class="built_in">zeros</span>(width(groundTruthData),<span class="number">1</span>);</span><br><span class="line">precision = cell(width(groundTruthData),<span class="number">1</span>);</span><br><span class="line">recall = cell(width(groundTruthData),<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:width(groundTruthData)</span><br><span class="line">    <span class="comment">%% step1 统计出groundTruth框的个数M（计算召回率的分母）和检测框个数N</span></span><br><span class="line">    currentCategorcial = groundTruthData.Properties.VariableNames&#123;i&#125;;</span><br><span class="line">    M = sum(cellfun(@(x)<span class="built_in">size</span>(x,<span class="number">1</span>),groundTruthData.(currentCategorcial)));<span class="comment">% groundTruth个数</span></span><br><span class="line">    indexDetectionCell = cellfun(@(x)ismember(x,currentCategorcial),detectionResults.(predictlName),<span class="string">'UniformOutput'</span>,false);</span><br><span class="line">    N = sum(cellfun(@(x)sum(x),indexDetectionCell)); <span class="comment">% 检测框的个数，其中内层sum针对单张图像的某个类别检测数量求和，外层是对所有图像求和</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">%% step2 初始化中间存储矩阵</span></span><br><span class="line">    P = <span class="built_in">zeros</span>(N,<span class="number">2</span>);</span><br><span class="line">    Q = <span class="built_in">zeros</span>(N,<span class="number">2</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">%% Step3 遍历每张图像，每个检测框与groundTruth计算IOU</span></span><br><span class="line">    num = <span class="number">1</span>; <span class="comment">% 用于记录检测框的数量</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span>:height(detectionResults) <span class="comment">%每幅图像</span></span><br><span class="line">        currentDetectionArray = detectionResults.(predictbBoxName)&#123;j&#125;(indexDetectionCell&#123;j&#125;,:);</span><br><span class="line">        currentScoresArray = detectionResults.(predictscoreName)&#123;j&#125;(indexDetectionCell&#123;j&#125;,:);</span><br><span class="line">        </span><br><span class="line">        groundTruthROIArray = groundTruthData.(currentCategorcial)&#123;j&#125;;</span><br><span class="line">        <span class="keyword">for</span> k = <span class="number">1</span>:<span class="built_in">size</span>(currentDetectionArray,<span class="number">1</span>) <span class="comment">% 每个检测框</span></span><br><span class="line">            overlapRatio = bboxOverlapRatio(currentDetectionArray(k,:),groundTruthROIArray);</span><br><span class="line">            P(num,<span class="number">1</span> ) = currentScoresArray(k,<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> any(overlapRatio&gt;throushold_IOU)</span><br><span class="line">                P(num,<span class="number">2</span>) = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                P(num,<span class="number">2</span>) = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            num = num+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">%% Step4 预测分数进行从大到小进行排序</span></span><br><span class="line">    [~,idx] = sort(P(:,1),1,"descend");</span><br><span class="line">    P = P(idx,:);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">%% Step5 计算每个检测框的召回率和精确率</span></span><br><span class="line">    currentRecall = cumsum(P(:,<span class="number">2</span>)/M);</span><br><span class="line">    currentPrecision = cumsum(P(:,<span class="number">2</span>))./(cumsum(P(:,<span class="number">2</span>))+cumsum(~P(:,<span class="number">2</span>)));</span><br><span class="line">    Q = [currentRecall,currentPrecision];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">%% Step6 计算当前类别的AP</span></span><br><span class="line">    qInterp = <span class="number">0</span>:<span class="number">0.1</span>:<span class="number">1</span>; <span class="comment">%11点插值法</span></span><br><span class="line">    numsq = <span class="built_in">length</span>(qInterp);</span><br><span class="line">    qInterpPrecision = <span class="built_in">zeros</span>(numsq,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> q_idx = <span class="number">1</span>:numsq</span><br><span class="line">        indexR = Q(:,<span class="number">1</span>)+<span class="built_in">eps</span>&gt;=qInterp(q_idx);</span><br><span class="line">        precisionAll = Q(:,<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">if</span> all(indexR==<span class="number">0</span>)</span><br><span class="line">            qInterpPrecision(q_idx) = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            qInterpPrecision(q_idx) = max(precisionAll(indexR));</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    averagePrecision(<span class="built_in">i</span>) = mean(qInterpPrecision);</span><br><span class="line">    precision&#123;i&#125; = Q(:,<span class="number">2</span>);</span><br><span class="line">    recall&#123;i&#125; = Q(:,<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">%% 画图(可选)</span></span><br><span class="line">    isShow = true;</span><br><span class="line">    <span class="keyword">if</span> isShow</span><br><span class="line">        figure;hold on;</span><br><span class="line">        scatter(qInterp,qInterpPrecision,<span class="number">40</span>,<span class="string">'r'</span>,<span class="string">'filled'</span>);</span><br><span class="line">        plot(recall&#123;<span class="number">1</span>&#125;,precision&#123;<span class="number">1</span>&#125;,<span class="string">'-bo'</span>);</span><br><span class="line">        title([<span class="string">'PR curve,AP:'</span>,num2str(averagePrecision(i))]);xlabel(<span class="string">'recall'</span>);ylabel(<span class="string">'precision'</span>);grid on;</span><br><span class="line">        legend(&#123;<span class="string">'11点插值'</span>,currentCategorcial&#125;)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="comment">%% Step7 下一个类别循环</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2><span id="reference">Reference</span></h2>
+<p>[1] <a href="https://github.com/rafaelpadilla/Object-Detection-Metrics" target="_blank" rel="noopener">Object-Detection-Metrics</a><br>
+[2] <a href="https://www.zhihu.com/question/53405779" target="_blank" rel="noopener">目标检测中的mAP是什么含义？</a><br>
+[3] <a href="http://cocodataset.org/#detection-eval" target="_blank" rel="noopener">Detection Evaluation</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/04/03/带动量的随机梯度下降算法-从原理到实践/" data-toggle="tooltip" data-placement="top" title="带动量的随机梯度下降算法-从原理到实践">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/01/28/深度学习实战-从原理到实践/" data-toggle="tooltip" data-placement="top" title="深度学习实战-从原理到实践">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、引言案例</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、问答</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、算法核心步骤</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">注意误点：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、计算</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、示例</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Reference</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
+                        
+                          <a class="tag" href="/tags/#目标检测" title="目标检测">目标检测</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/cuixing001" target="_blank">my CSDN blog</a></li>
+                    
+                        <li><a href="https://godweiyang.com/" target="_blank">wei yang&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://yoursite-url/2020/02/20/目标检测中AP的计算，你真的会了吗/";
+    var disqus_url = "http://yoursite-url/2020/02/20/目标检测中AP的计算，你真的会了吗/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<script type="text/javascript" src="/js/zooming.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/cui-xing-xing-97/activities">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/cuixing158">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/星星-崔-523744113/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; TheMatrix 2020 
+                    <br>
+                    Blog home <a href="https://cuixing158.github.io/">Cuixingxing</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>  
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

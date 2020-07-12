@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/me.jpg">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Why Are the Features Obtained by &quot;Predict&quot; and &quot;Forward&quot; Function Very Different? - TheMatrix | star
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2020/07/11/batchnorm_forward_predict/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('shenzhen_zoo.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#matlab" title="matlab">matlab</a>
+                            
+                              <a class="tag" href="/tags/#batchnorm" title="batchnorm">batchnorm</a>
+                            
+                        </div>
+                        <h1>Why Are the Features Obtained by &quot;Predict&quot; and &quot;Forward&quot; Function Very Different?</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by TheMatrix on
+                            2020-07-11
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">崔星星</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>According to official instructions, “<a href="https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.forward.html" target="_blank" rel="noopener">forward</a>” is used for inference during the network training phase, and “<a href="https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.predict.html" target="_blank" rel="noopener">predict</a>” is used for inference during the network prediction phase.But there are a large number of networks used by the batchnorm layer,the features of forward and predict are very different.</p>
+</blockquote>
+<p>For convenience, only observe the output features  of the first  convolution layer and bathhorm layer of resnet50,We first take the <a href="https://www.mathworks.com/help/deeplearning/ref/resnet50.html?s_tid=srchtitle" target="_blank" rel="noopener">resnet50</a> network provided by matlab as an example to illustrate, convert to <a href="https://www.mathworks.com/help/deeplearning/ref/dlnetwork.html?s_tid=srchtitle" target="_blank" rel="noopener">dlnetwork</a> and compare.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">net50 = resnet50;</span><br><span class="line">inputsize = [224,224];</span><br><span class="line">img = imresize(imread(&apos;peppers.png&apos;),inputsize);</span><br><span class="line">inputImg = dlarray(im2single(img),&apos;SSCB&apos;);</span><br><span class="line">lg = layerGraph(net50);</span><br><span class="line">newlg = removeLayers(lg,&apos;ClassificationLayer_fc1000&apos;);</span><br><span class="line">dlnet = dlnetwork(newlg); % take long time ???</span><br></pre></td></tr></table></figure>
+<p><img src="image_0.png" alt="fig"></p>
+<center>network</center>
+<h1><span id="simple-case">simple case:</span></h1>
+<p>We extract the feature named “fc1000_softmax” layer，big different features between forward_f and predict_f ?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[forward_f,state1] = forward(dlnet,inputImg);</span><br><span class="line">[~,ind1] = max(forward_f)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ind1 = </span><br><span class="line">  1(C) x 1(B) dlarray</span><br><span class="line">   464</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[predict_f,state2] = predict(dlnet,inputImg);</span><br><span class="line">[~,ind2] = max(predict_f)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ind2 = </span><br><span class="line">  1(C) x 1(B) dlarray</span><br><span class="line">   917</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">activations_f = activations(net50,im2single(img),&apos;fc1000_softmax&apos;,&apos;OutputAs&apos;,&apos;columns&apos;);</span><br><span class="line">[~,ind3] = max(activations_f)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ind3 = 917</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dlnet.State = state1;</span><br><span class="line">[predict_update_f,state4] = predict(dlnet,inputImg);</span><br><span class="line">[~,ind4] = max(predict_update_f)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ind4 = </span><br><span class="line">  1(C) x 1(B) dlarray</span><br><span class="line">   665</span><br></pre></td></tr></table></figure>
+<p>Why is forward_f and predict_f very different? Then we look at the following step by step analysis why this is so!</p>
+<h1><span id="analysis">analysis:</span></h1>
+<h2><span id="calculate-whether-the-output-of-the-bn-layer-is-consistent-in-two-ways"><strong>Calculate whether the output of the BN layer is consistent in two ways</strong></span></h2>
+<p>forward_features{1} are convolution features, forward_features{2} are features from batchnorm.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Epsilon = 1e-4;</span><br><span class="line">convlayer = dlnet.Layers(&#123;dlnet.Layers.Name&#125;==&quot;conv1&quot;);</span><br><span class="line">bnlayer = dlnet.Layers(&#123;dlnet.Layers.Name&#125;==&quot;bn_conv1&quot;);</span><br><span class="line"></span><br><span class="line">forward_features = cell(2,1);</span><br><span class="line">[forward_features&#123;:&#125;,state]= forward(dlnet,inputImg,&apos;Outputs&apos;,&#123;&apos;conv1&apos;,&apos;bn_conv1&apos;&#125;);</span><br><span class="line">[dlY,mu,sigmasq] = batchnorm(forward_features&#123;1&#125;,squeeze(bnlayer.Offset),...</span><br><span class="line">    squeeze(bnlayer.Scale),100*ones(64,1),2*ones(64,1));% ,squeeze(bnlayer.TrainedMean),squeeze(bnlayer.TrainedVariance)   ,squeeze(dlnet.State.Value&#123;1&#125;),squeeze(dlnet.State.Value&#123;2&#125;)</span><br><span class="line">if ~all(abs(forward_features&#123;2&#125;-dlY)&lt;Epsilon,&apos;all&apos;)</span><br><span class="line">    forward_features&#123;2&#125;(1:10,1:10,1)</span><br><span class="line">    dlY(1:10,1:10,1)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ans = </span><br><span class="line">  10x10 single dlarray</span><br><span class="line">   -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623</span><br><span class="line">  -11.4266    0.7695   -0.0690   -0.0695   -0.0698   -0.0709   -0.0674   -0.0705   -0.0695   -0.0680</span><br><span class="line">   -8.8744    2.5809    1.5790    1.5792    1.5807    1.5787    1.5793    1.5794    1.5794    1.5802</span><br><span class="line">   -8.8747    2.5823    1.5794    1.5783    1.5799    1.5800    1.5780    1.5790    1.5786    1.5789</span><br><span class="line">   -8.8757    2.5821    1.5797    1.5781    1.5799    1.5802    1.5795    1.5788    1.5793    1.5789</span><br><span class="line">   -8.8753    2.5799    1.5809    1.5800    1.5775    1.5789    1.5800    1.5802    1.5793    1.5794</span><br><span class="line">   -8.8744    2.5816    1.5757    1.5819    1.5810    1.5768    1.5765    1.5796    1.5796    1.5780</span><br><span class="line">   -8.8748    2.5841    1.5780    1.5761    1.5814    1.5807    1.5780    1.5772    1.5791    1.5797</span><br><span class="line">   -8.8753    2.5818    1.5814    1.5788    1.5785    1.5790    1.5807    1.5798    1.5780    1.5786</span><br><span class="line">   -8.8745    2.5813    1.5785    1.5802    1.5790    1.5781    1.5792    1.5799    1.5793    1.5791</span><br><span class="line">ans = </span><br><span class="line">  10x10 single dlarray</span><br><span class="line">   -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623</span><br><span class="line">  -11.4266    0.7695   -0.0690   -0.0695   -0.0698   -0.0709   -0.0674   -0.0705   -0.0695   -0.0680</span><br><span class="line">   -8.8744    2.5809    1.5790    1.5792    1.5807    1.5787    1.5793    1.5794    1.5794    1.5802</span><br><span class="line">   -8.8748    2.5823    1.5794    1.5783    1.5799    1.5800    1.5780    1.5790    1.5786    1.5789</span><br><span class="line">   -8.8757    2.5821    1.5797    1.5781    1.5799    1.5802    1.5795    1.5788    1.5793    1.5789</span><br><span class="line">   -8.8753    2.5799    1.5809    1.5800    1.5775    1.5789    1.5800    1.5802    1.5793    1.5794</span><br><span class="line">   -8.8744    2.5816    1.5757    1.5819    1.5810    1.5768    1.5765    1.5796    1.5796    1.5780</span><br><span class="line">   -8.8749    2.5841    1.5780    1.5761    1.5814    1.5807    1.5780    1.5772    1.5791    1.5797</span><br><span class="line">   -8.8753    2.5818    1.5814    1.5788    1.5785    1.5790    1.5807    1.5798    1.5780    1.5786</span><br><span class="line">   -8.8745    2.5813    1.5785    1.5802    1.5790    1.5781    1.5792    1.5799    1.5793    1.5791</span><br></pre></td></tr></table></figure>
+<p>There is data output, indicating different, but the data looks the same, why?</p>
+<p>Than test the mean of “forward” function and batchnorm() function update</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">temp = squeeze(state.Value&#123;1&#125;);</span><br><span class="line">if ~all(mu==temp,&quot;all&quot;)</span><br><span class="line">    mu(1:10)</span><br><span class="line">    temp(1:10)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ans = 10x1 single column vector    </span><br><span class="line">   86.4990</span><br><span class="line">   88.6642</span><br><span class="line">   83.5626</span><br><span class="line">   90.9294</span><br><span class="line">   90.6073</span><br><span class="line">   97.3961</span><br><span class="line">   81.3441</span><br><span class="line">   96.4360</span><br><span class="line">   71.8466</span><br><span class="line">   90.3925</span><br><span class="line"></span><br><span class="line">ans = 10x1 single column vector    </span><br><span class="line">   -6.7745</span><br><span class="line">   -3.0580</span><br><span class="line">  -12.7130</span><br><span class="line">    2.2173</span><br><span class="line">    1.1940</span><br><span class="line">   12.9555</span><br><span class="line">  -16.8975</span><br><span class="line">   12.7977</span><br><span class="line">  -33.9066</span><br><span class="line">    0.6955</span><br></pre></td></tr></table></figure>
+<p>No result output, indicating that the mean of “forward” function is equal to  batchnorm() function update.</p>
+<p>Than test the variance of “forward” function and batchnorm() function update</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">temp = squeeze(state.Value&#123;2&#125;);</span><br><span class="line">if ~all(abs(sigmasq - temp)&lt;Epsilon,&quot;all&quot;)</span><br><span class="line">    sigmasq(1:10)</span><br><span class="line">    temp(1:10)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ans = 10x1 single column vector    </span><br><span class="line">   50.6704</span><br><span class="line">    1.9740</span><br><span class="line">    4.0529</span><br><span class="line">   12.4677</span><br><span class="line">    8.9267</span><br><span class="line">    4.2635</span><br><span class="line">    8.7056</span><br><span class="line">   37.6846</span><br><span class="line">    3.5269</span><br><span class="line">    2.0079</span><br><span class="line"></span><br><span class="line">ans = 10x1 single column vector    </span><br><span class="line">1.0e+03 *</span><br><span class="line"></span><br><span class="line">    4.5144</span><br><span class="line">    1.8444</span><br><span class="line">    1.2742</span><br><span class="line">    0.6138</span><br><span class="line">    2.7673</span><br><span class="line">    9.6139</span><br><span class="line">    2.1018</span><br><span class="line">    2.1818</span><br><span class="line">    9.7148</span><br><span class="line">    0.5078</span><br></pre></td></tr></table></figure>
+<p>There is data output, indicating different, but the data looks the same, why?</p>
+<p>Than compare the difference between forward and predict</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">predict_features = cell(2,1);</span><br><span class="line">[predict_features&#123;:&#125;]= predict(dlnet,inputImg,&apos;Outputs&apos;,&#123;&apos;conv1&apos;,&apos;bn_conv1&apos;&#125;);</span><br><span class="line">if ~all(abs(forward_features&#123;1&#125;-predict_features&#123;1&#125;)&lt;Epsilon,&quot;all&quot;) % compare conv features</span><br><span class="line">    forward_features&#123;1&#125;(1:10,1:10,1)</span><br><span class="line">    predict_features&#123;1&#125;(1:10,1:10,1)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>No result output, indicating that the convolution operation is consistent in forward and predict results.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if ~all(abs(forward_features&#123;2&#125;-predict_features&#123;2&#125;)&lt;Epsilon,&quot;all&quot;) % compare batchnorm features</span><br><span class="line">    forward_features&#123;2&#125;(1:10,1:10,1)</span><br><span class="line">    predict_features&#123;2&#125;(1:10,1:10,1)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ans = </span><br><span class="line">  10x10 single dlarray</span><br><span class="line">   -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623</span><br><span class="line">  -11.4266    0.7695   -0.0690   -0.0695   -0.0698   -0.0709   -0.0674   -0.0705   -0.0695   -0.0680</span><br><span class="line">   -8.8744    2.5809    1.5790    1.5792    1.5807    1.5787    1.5793    1.5794    1.5794    1.5802</span><br><span class="line">   -8.8747    2.5823    1.5794    1.5783    1.5799    1.5800    1.5780    1.5790    1.5786    1.5789</span><br><span class="line">   -8.8757    2.5821    1.5797    1.5781    1.5799    1.5802    1.5795    1.5788    1.5793    1.5789</span><br><span class="line">   -8.8753    2.5799    1.5809    1.5800    1.5775    1.5789    1.5800    1.5802    1.5793    1.5794</span><br><span class="line">   -8.8744    2.5816    1.5757    1.5819    1.5810    1.5768    1.5765    1.5796    1.5796    1.5780</span><br><span class="line">   -8.8748    2.5841    1.5780    1.5761    1.5814    1.5807    1.5780    1.5772    1.5791    1.5797</span><br><span class="line">   -8.8753    2.5818    1.5814    1.5788    1.5785    1.5790    1.5807    1.5798    1.5780    1.5786</span><br><span class="line">   -8.8745    2.5813    1.5785    1.5802    1.5790    1.5781    1.5792    1.5799    1.5793    1.5791</span><br><span class="line">ans = </span><br><span class="line">  10x10 single dlarray</span><br><span class="line">   -1.8324    2.4990    1.9922    1.9922    1.9921    1.9928    1.9923    1.9922    1.9926    1.9923</span><br><span class="line">   -3.0570    0.7706    0.5074    0.5073    0.5072    0.5068    0.5080    0.5070    0.5073    0.5078</span><br><span class="line">   -2.2560    1.3391    1.0246    1.0247    1.0252    1.0245    1.0247    1.0248    1.0248    1.0250</span><br><span class="line">   -2.2562    1.3395    1.0248    1.0244    1.0249    1.0250    1.0243    1.0247    1.0245    1.0246</span><br><span class="line">   -2.2564    1.3395    1.0249    1.0244    1.0249    1.0250    1.0248    1.0246    1.0247    1.0246</span><br><span class="line">   -2.2563    1.3388    1.0252    1.0250    1.0242    1.0246    1.0250    1.0250    1.0248    1.0248</span><br><span class="line">   -2.2561    1.3393    1.0236    1.0256    1.0253    1.0240    1.0239    1.0248    1.0249    1.0243</span><br><span class="line">   -2.2562    1.3401    1.0244    1.0237    1.0254    1.0252    1.0243    1.0241    1.0247    1.0249</span><br><span class="line">   -2.2563    1.3394    1.0254    1.0246    1.0245    1.0247    1.0252    1.0249    1.0243    1.0245</span><br><span class="line">   -2.2561    1.3392    1.0245    1.0250    1.0247    1.0244    1.0247    1.0249    1.0247    1.0247</span><br></pre></td></tr></table></figure>
+<p>The problem is coming, the values of predict and forward are obviously different. So I want to test why predict is very different. Below I use batchnorm() function to execute the result of the last convolution, without entering mean and variance.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">predict_y = batchnorm(forward_features&#123;1&#125;,squeeze(bnlayer.Offset),squeeze(bnlayer.Scale));</span><br><span class="line">predict_y(1:10,1:10,1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ans = </span><br><span class="line">  10x10 single dlarray</span><br><span class="line">   -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623</span><br><span class="line">  -11.4266    0.7695   -0.0690   -0.0695   -0.0698   -0.0709   -0.0674   -0.0705   -0.0695   -0.0680</span><br><span class="line">   -8.8744    2.5809    1.5790    1.5792    1.5807    1.5787    1.5793    1.5794    1.5794    1.5802</span><br><span class="line">   -8.8748    2.5823    1.5794    1.5783    1.5799    1.5800    1.5780    1.5790    1.5786    1.5789</span><br><span class="line">   -8.8757    2.5821    1.5797    1.5781    1.5799    1.5802    1.5795    1.5788    1.5793    1.5789</span><br><span class="line">   -8.8753    2.5799    1.5809    1.5800    1.5775    1.5789    1.5800    1.5802    1.5793    1.5794</span><br><span class="line">   -8.8744    2.5816    1.5757    1.5819    1.5810    1.5768    1.5765    1.5796    1.5796    1.5780</span><br><span class="line">   -8.8749    2.5841    1.5780    1.5761    1.5814    1.5807    1.5780    1.5772    1.5791    1.5797</span><br><span class="line">   -8.8753    2.5818    1.5814    1.5788    1.5785    1.5790    1.5807    1.5798    1.5780    1.5786</span><br><span class="line">   -8.8745    2.5813    1.5785    1.5802    1.5790    1.5781    1.5792    1.5799    1.5793    1.5791</span><br></pre></td></tr></table></figure>
+<p>From the output results, it is consistent with forward, why is it not the result of predict? Excuse me, what happened?(it is  actually  “forward()” mode)</p>
+<h2><span id="further-testing"><strong>Further testing</strong></span></h2>
+<p>batchnorm() is internally calculated as ,the normalized activation is calculated using the following formula:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\overset&#123;\wedge &#125;&#123;x_i &#125; =\frac&#123;x_i -\mu_c &#125;&#123;\sqrt&#123;&#123;\sigma_c &#125;^2 +\varepsilon &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>where $x_i$ is the input activation, $\mu_c$ (<code>mu</code>) and ${\sigma_c }^2$ (<code>sigmaSq</code>) are the per-channel mean and variance, respectively, and $\varepsilon$ is a small constant.</p>
+<p>The normalized activation is offset and scaled according to the following formula:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_i =\gamma \overset&#123;\wedge &#125;&#123;x_i &#125; +\beta</span><br></pre></td></tr></table></figure>
+<p>The offset $\beta$ and scale factor $\gamma$ are specified with the <code>offset</code> and <code>scaleFactor</code> arguments.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">xi = forward_features&#123;1&#125;;% 112×112×64×1</span><br><span class="line">mu_global = dlnet.State.Value&#123;1&#125;; % 1*1*64  &quot;predict()&quot; use</span><br><span class="line">var_global = dlnet.State.Value&#123;2&#125;; % 1*1*64  &quot;predict()&quot; use</span><br><span class="line">mu_local = mean(forward_features&#123;1&#125;,[1,2]);%  1*1*64*1  per-channel mean, &quot;forward()&quot; use</span><br><span class="line">var_local = var(forward_features&#123;1&#125;,0,[1,2]);%  1*1*64*1  per-channel variance,&quot;forward()&quot; use</span><br><span class="line"></span><br><span class="line">predict_mode = 0; % if the network is prediction phase</span><br><span class="line">if predict_mode</span><br><span class="line">    norm_xi = (xi-mu_global)./sqrt(var_global+Epsilon);% 112×112×64×1, &quot;predict()&quot; use</span><br><span class="line">else</span><br><span class="line">    norm_xi = (xi-mu_local)./sqrt(var_local+Epsilon);% 112×112×64×1,&quot;forward()&quot; use</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">cal_predict_y = bnlayer.Scale.*norm_xi+bnlayer.Offset; %112×112×64×1,Support broadcast mechanism</span><br><span class="line">cal_predict_y(1:10,1:10,1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ans = </span><br><span class="line">  10x10 single dlarray</span><br><span class="line">   -7.5241    6.2765    4.6618    4.6619    4.6616    4.6637    4.6620    4.6620    4.6630    4.6622</span><br><span class="line">  -11.4261    0.7695   -0.0690   -0.0694   -0.0698   -0.0709   -0.0673   -0.0705   -0.0695   -0.0679</span><br><span class="line">   -8.8740    2.5809    1.5790    1.5792    1.5807    1.5787    1.5793    1.5794    1.5794    1.5802</span><br><span class="line">   -8.8743    2.5823    1.5794    1.5783    1.5799    1.5800    1.5780    1.5790    1.5786    1.5789</span><br><span class="line">   -8.8753    2.5821    1.5797    1.5781    1.5799    1.5802    1.5795    1.5788    1.5793    1.5789</span><br><span class="line">   -8.8749    2.5798    1.5809    1.5800    1.5775    1.5789    1.5800    1.5802    1.5793    1.5794</span><br><span class="line">   -8.8740    2.5815    1.5757    1.5819    1.5810    1.5768    1.5765    1.5796    1.5796    1.5780</span><br><span class="line">   -8.8744    2.5840    1.5780    1.5761    1.5814    1.5806    1.5779    1.5772    1.5791    1.5796</span><br><span class="line">   -8.8749    2.5817    1.5814    1.5787    1.5785    1.5790    1.5807    1.5798    1.5780    1.5786</span><br><span class="line">   -8.8741    2.5813    1.5785    1.5802    1.5790    1.5781    1.5792    1.5799    1.5793    1.5791</span><br></pre></td></tr></table></figure>
+<p>The results are excellent, verifying the correctness of the above results. When <em>predict_mode</em>=1, *cal_predict_y *is the same as <em>predict_features</em>(2); when <em>predict_mode</em>=0, <em>cal_predict_y</em> is the same as <em>forward_features</em>(2).</p>
+<h2><span id="calculate-state-quantity-by-formula"><strong>Calculate state quantity by formula</strong></span></h2>
+<p>Let’s look at a formula that is calculated and updated manually according to the formula:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s_n =&#123;\phi s&#125;_x +\left(1-\phi \right)s_&#123;n-1&#125;</span><br></pre></td></tr></table></figure>
+<p>where $s_n$ is the statistic computed over several mini-batches, $s_x$ is the per-channel statistic of the current mini-batch, and $\phi$ is the decay value for the statistic.</p>
+<p>Use this syntax to iteratively update the mean and variance statistics over several mini-batches of data during training. Use the final value of the mean and variance computed over all training mini-batches to normalize data for prediction and classification.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">decay = 0.1;</span><br><span class="line">update_mu = decay*squeeze(mu_local)+...</span><br><span class="line">    (1-decay)*squeeze(bnlayer.TrainedMean);</span><br><span class="line">update_sigmasq = extractdata(decay*squeeze(var_local)+...</span><br><span class="line">    (1-decay)*squeeze(bnlayer.TrainedVariance));</span><br><span class="line">if ~all(abs(mu-update_mu)&lt;Epsilon,&quot;all&quot;)</span><br><span class="line">    mu(1:10)</span><br><span class="line">    update_mu(1:10)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ans = 10x1 single column vector    </span><br><span class="line">   86.4990</span><br><span class="line">   88.6642</span><br><span class="line">   83.5626</span><br><span class="line">   90.9294</span><br><span class="line">   90.6073</span><br><span class="line">   97.3961</span><br><span class="line">   81.3441</span><br><span class="line">   96.4360</span><br><span class="line">   71.8466</span><br><span class="line">   90.3925</span><br><span class="line"></span><br><span class="line">ans = </span><br><span class="line">  10x1 single dlarray</span><br><span class="line">   -6.7745</span><br><span class="line">   -3.0580</span><br><span class="line">  -12.7130</span><br><span class="line">    2.2173</span><br><span class="line">    1.1940</span><br><span class="line">   12.9555</span><br><span class="line">  -16.8975</span><br><span class="line">   12.7977</span><br><span class="line">  -33.9066</span><br><span class="line">    0.6955</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if ~all(abs(sigmasq-update_sigmasq)&lt;Epsilon,&quot;all&quot;)</span><br><span class="line">    sigmasq(1:10)</span><br><span class="line">    update_sigmasq(1:10)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ans = 10x1 single column vector    </span><br><span class="line">   50.6704</span><br><span class="line">    1.9740</span><br><span class="line">    4.0529</span><br><span class="line">   12.4677</span><br><span class="line">    8.9267</span><br><span class="line">    4.2635</span><br><span class="line">    8.7056</span><br><span class="line">   37.6846</span><br><span class="line">    3.5269</span><br><span class="line">    2.0079</span><br><span class="line"></span><br><span class="line">ans = 10x1 single column vector    </span><br><span class="line">1.0e+03 *</span><br><span class="line"></span><br><span class="line">    4.5144</span><br><span class="line">    1.8444</span><br><span class="line">    1.2742</span><br><span class="line">    0.6138</span><br><span class="line">    2.7673</span><br><span class="line">    9.6139</span><br><span class="line">    2.1018</span><br><span class="line">    2.1818</span><br><span class="line">    9.7148</span><br><span class="line">    0.5078</span><br></pre></td></tr></table></figure>
+<p>There is data output, indicating different, but the data looks the same, why? Could it be that the <em>Epsilon</em> setting is too small?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if ~all(abs(update_mu-squeeze(mu_global))&lt;Epsilon,&quot;all&quot;)</span><br><span class="line">    squeeze(mu_global(1:10))</span><br><span class="line">    update_mu(1:10)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ans = 10x1 single column vector    </span><br><span class="line">   -3.6372</span><br><span class="line">   -1.9135</span><br><span class="line">   -6.9729</span><br><span class="line">    1.4310</span><br><span class="line">    0.6519</span><br><span class="line">    6.1771</span><br><span class="line">   -9.1573</span><br><span class="line">    7.0686</span><br><span class="line">  -17.5036</span><br><span class="line">    0.3366</span><br><span class="line"></span><br><span class="line">ans = </span><br><span class="line">  10x1 single dlarray</span><br><span class="line">   -6.7745</span><br><span class="line">   -3.0580</span><br><span class="line">  -12.7130</span><br><span class="line">    2.2173</span><br><span class="line">    1.1940</span><br><span class="line">   12.9555</span><br><span class="line">  -16.8975</span><br><span class="line">   12.7977</span><br><span class="line">  -33.9066</span><br><span class="line">    0.6955</span><br></pre></td></tr></table></figure>
+<p>There is data output, Shows that the results are significantly different, <em>update_mu</em> is not updated to the “dlnet.state” state,So if we use “forward()” for propagation in the future, remember to assign the returned state to dlnet.state in order to keep the state updated.</p>
+<h1><span id="conclusion">conclusion:</span></h1>
+<ul>
+<li>forward() stage, batchnorm() uses the parameters of the per channel mean and variance of the current sample set, and then uses the weighted cumulative form to calculate the global mean and variance.</li>
+<li>predict() stage,  batchnorm() uses the mean and variance of the entire state of <strong>dlnet.state</strong> for network propagation.</li>
+</ul>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/07/07/洞察分类网络激活热力图test/" data-toggle="tooltip" data-placement="top" title="洞察分类网络激活热力图">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">simple case:</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">analysis:</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Calculate whether the output of the BN layer is consistent in two ways</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">Further testing</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Calculate state quantity by formula</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">conclusion:</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#matlab" title="matlab">matlab</a>
+                        
+                          <a class="tag" href="/tags/#batchnorm" title="batchnorm">batchnorm</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/cuixing001" target="_blank">my CSDN blog</a></li>
+                    
+                        <li><a href="https://godweiyang.com/" target="_blank">wei yang&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://yoursite-url/2020/07/11/batchnorm_forward_predict/";
+    var disqus_url = "http://yoursite-url/2020/07/11/batchnorm_forward_predict/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<script type="text/javascript" src="/js/zooming.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/cui-xing-xing-97/activities">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/cuixing158">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/星星-崔-523744113/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; TheMatrix 2020 
+                    <br>
+                    Blog home <a href="https://cuixing158.github.io/">Cuixingxing</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>  
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

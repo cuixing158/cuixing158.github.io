@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/me.jpg">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          深度学习实战-从原理到实践 - TheMatrix | star
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2020/01/28/深度学习实战-从原理到实践/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('shenzhen_zoo.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
+                            
+                              <a class="tag" href="/tags/#梯度下降" title="梯度下降">梯度下降</a>
+                            
+                              <a class="tag" href="/tags/#反向传播" title="反向传播">反向传播</a>
+                            
+                              <a class="tag" href="/tags/#数字识别" title="数字识别">数字识别</a>
+                            
+                        </div>
+                        <h1>深度学习实战-从原理到实践</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by TheMatrix on
+                            2020-01-28
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">崔星星</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>现当今机器学习/深度学习技术在某些具体垂直领域已被大量广泛应用到现实世界中，已经不再像前几年那么“火热”，与之对应的各类深度学习框架也是“百花齐放,百家争鸣”，框架终究只是个工具，不过简化了从“零”开始复杂繁琐的工作，让很多普通人都可以快速入门。本博客不单纯完成一个任务，也不涉及过多理论推导，而是真正体会到算法工作一步步原理，逐步实现，岂不乐乎？</p>
+</blockquote>
+<p>本篇博客以经典的<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST手写数字</a>识别为例，逐步一步步实现通用的深度学习网络模型架构，不调用任何第三方库和框架，使用matlab进行快速搭建、训练和测试。程序中所涉及的理论知识及使用的变量名严格按照<a href="https://www.cnblogs.com/huangyc/p/10000394.html" target="_blank" rel="noopener">DNN神经网络的反向更新（BP）</a>、<a href="https://www.cnblogs.com/pinard/p/6494810.html" target="_blank" rel="noopener">卷积神经网络(CNN)反向传播算法</a> 这两篇博客的符号和公式进行。MNIST手写数字包含60000张训练图片，10000张测试图片，图片大小为28×28，灰度图像，<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">官网</a>给出的是四个二进制存储的文件,分别为训练和测试的数据集和标签文件。假设读者已经明白所给链接博客的理论知识（不清楚可以参考更多文后的文献和程序代码中给的链接），我们接下来进行下面的具体实现。</p>
+<h2><span id="网络架构设计">网络架构设计</span></h2>
+<p>考虑到网络简单和易用性，根据MNIST数据集特点，设计了四层网络层，分别为conv+relu+meanPool、conv+relu+dropout、conv+relu+dropout、conv+softmax四个连续模块层。每个模块层进行串连连接，不涉及跳层结构，其中第一个模块层的conv是CNN卷积操作，卷积核大小为9×9×1×20,四维矩阵（h×w×c_in×c_out），即20个卷积核；第二个及以后模块的conv其实是全连接层，因为前面的层每个神经元都会与下一层所有神经元进行全连接，神经元个数分别人工设定为95、45、10。这三层是用BP反向传播原理进行参数更新，第一层是按照CNN的反向传播算法进行更新。网络示意图如下,示意图中只画了CNN层和一个最后模块层：<br>
+<img src="network.jpg" alt="img"></p>
+<h2><span id="网络训练工作流程">网络训练工作流程</span></h2>
+<p>1、数字图像训练集预处理：具体是60000张图像和标签通过二进制方式逐步读入，然后归一化为28×28×1×numsImg大小，[0,1]范围，float类型数据；标签为numsImg×1 大小,0~9数字，float类型数据；<br>
+2、超参数设定：具体是网络权重学习速率alpha=0.01，动量因子beta = 0.01, dropout层丢弃因子ratio = 0.01，总循环代数epoch=2,批处理大小batchSize = 10;权重和梯度初始化，注意大小和范围；这些超参数主要根据经验确定。<br>
+3、反向传播算法+梯度下降算法，迭代更新参数寻优。<br>
+训练主文件为“train.m”,<br>
+训练预览部分数字图像情况：<br>
+<img src="digital.jpg" alt="img1"><br>
+训练迭代过程：<br>
+<img src="train.jpg" alt="img2"></p>
+<h2><span id="网络测试工作流程">网络测试工作流程</span></h2>
+<p>待网络训练完毕，测试流程与训练流程大致相似，也需要进行正向传播，但也有些区别，测试过程不涉及到网络参数更新，训练的一些因素也需要冻结屏蔽。<br>
+1、数字图像测试集预处理：具体是10000张图像和标签通过二进制方式逐步读入，然后归一化为28×28×1×numsImg大小，[0,1]范围，float类型数据；标签为numsImg×1 大小,0~9数字，float类型数据；<br>
+2、超参数学习速率，动量因子，dropout等需要屏蔽，屏蔽方式见&quot;Predict.m&quot;内容。<br>
+3、计算统计测试整体准确率。<br>
+测试主文件为“test.m”,<br>
+<img src="digital2.jpg" alt="img3"><br>
+测试集总体准确率：<br>
+<img src="test.jpg" alt="img4"></p>
+<h2><span id="code">code</span></h2>
+<p>** talk is cheap,show me the code!**<br>
+<a href="https://github.com/cuixing158/DeeplearningPractice" target="_blank" rel="noopener">项目代码地址</a><br>
+train.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 1、数据MNISTData预处理</span></span><br><span class="line">imageFileNameTrain = <span class="string">'G:\MNIST\train-images.idx3-ubyte'</span>;</span><br><span class="line">labelFileNameTtrain = <span class="string">'G:\MNIST\train-labels.idx1-ubyte'</span>;</span><br><span class="line">nClasses = <span class="number">10</span>;</span><br><span class="line">order = <span class="number">0</span>:<span class="number">9</span>;</span><br><span class="line"></span><br><span class="line">[X_Train,Label_Train] = processMNISTdata(imageFileNameTrain,labelFileNameTtrain);</span><br><span class="line">Label_Train_h = onehot(Label_Train,nClasses,order);</span><br><span class="line"></span><br><span class="line">montage(X_Train(:,:,:,<span class="number">1</span>:<span class="number">9</span>))</span><br><span class="line">title([<span class="string">'Ground Truth:'</span>,num2str(Label_Train(<span class="number">1</span>:<span class="number">9</span>)<span class="string">')]);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">%% 2、超参数设定</span></span><br><span class="line"><span class="string">alpha=0.01;</span></span><br><span class="line"><span class="string">beta =0.01;</span></span><br><span class="line"><span class="string">ratio = 0.01;</span></span><br><span class="line"><span class="string">epoch = 2;</span></span><br><span class="line"><span class="string">batchSize = 10;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">W1=1e-2*randn(9,9,1,20);% 第一层为CNN卷积，9*9大小，输入通道为1，输出通道设定为20</span></span><br><span class="line"><span class="string">W2=(2*rand(95,2000)-1)/20;% 第二层为BP卷积层，设定神经元个数为95，2000为第一层特征融合计算得出的</span></span><br><span class="line"><span class="string">W3=(2*rand(45,95)-1)/10; % 第三层为BP卷积层，设定神经元个数为45</span></span><br><span class="line"><span class="string">W4=(2*rand(10,45)-1)/5; % 第四层为BP卷积层，设定神经元个数为10，因为直接与10个数字对应</span></span><br><span class="line"><span class="string">mmt1 = zeros(size(W1));% 带动量的W1梯度，稳定训练</span></span><br><span class="line"><span class="string">mmt2 = zeros(size(W2));</span></span><br><span class="line"><span class="string">mmt3 = zeros(size(W3));</span></span><br><span class="line"><span class="string">mmt4 = zeros(size(W4));</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">%% 3、反向传播算法+梯度下降算法，迭代更新参数寻优</span></span><br><span class="line"><span class="string">numCorrect = 0;% 累计预测正确的样本个数</span></span><br><span class="line"><span class="string">numAll = 0;% 累计输入网络的样本个数</span></span><br><span class="line"><span class="string">accuracy = 0;</span></span><br><span class="line"><span class="string">for i = 1:epoch</span></span><br><span class="line"><span class="string">    [~, ~, ~,numsImgs] = size(X_Train);</span></span><br><span class="line"><span class="string">    for    idx= 1:batchSize:numsImgs</span></span><br><span class="line"><span class="string">        %% batch data</span></span><br><span class="line"><span class="string">        batchInds = idx:min(idx+batchSize-1,numsImgs);</span></span><br><span class="line"><span class="string">        batchX = X_Train(:,:,:,batchInds);% 28*28*batchSize</span></span><br><span class="line"><span class="string">        batchY = Label_Train_h(:,batchInds);% 10*batchSize</span></span><br><span class="line"><span class="string">        [~,~,~,bs] = size(batchX);</span></span><br><span class="line"><span class="string">        % show images and true labels</span></span><br><span class="line"><span class="string">        % montage(batchX);</span></span><br><span class="line"><span class="string">        % title(['</span>Ground Truth:<span class="string">',num2str(Label_Train(batchInds)'</span>)]);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%% 第一层：CNN卷积+relu+池化层</span></span><br><span class="line">        Z1= ConvLayer(batchX,W1);</span><br><span class="line">        Y1=ReLULayer(Z1);</span><br><span class="line">        A1 =PoolLayer(Y1);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%% 第二层：BP全连接层 ＋relu+ DropoutLayer</span></span><br><span class="line">        y1=<span class="built_in">reshape</span>(A1,[],batchSize);</span><br><span class="line">        Z2=W2*y1;</span><br><span class="line">        Y2=ReLULayer(Z2);</span><br><span class="line">        [A2,mask2] = DropoutLayer(Y2, ratio);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%% 第三层：BP全连接层 ＋ relu+ DropoutLayer</span></span><br><span class="line">        Z3=W3*A2;</span><br><span class="line">        Y3=ReLULayer(Z3);</span><br><span class="line">        [A3,mask3] =  DropoutLayer(Y3, ratio);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%% 第四层：BP全连接层+softmax</span></span><br><span class="line">        Z4 = W4*A3;</span><br><span class="line">        P = SoftmaxLayer(Z4); <span class="comment">% 10*batchSize 大小</span></span><br><span class="line">        <span class="comment">% 计算训练集当前准确率</span></span><br><span class="line">        [~,ind] = max(P);</span><br><span class="line">        predict_L = onehot(ind<span class="number">-1</span>,nClasses,order);</span><br><span class="line">        <span class="keyword">for</span> idx_img = <span class="number">1</span>:bs</span><br><span class="line">            isEqual = predict_L(:,idx_img)==batchY(:,idx_img);</span><br><span class="line">            numCorrect = numCorrect+all(isEqual);</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        numAll = numAll+bs;</span><br><span class="line">        accuracy = numCorrect/numAll;</span><br><span class="line">        fprintf(<span class="string">'第%d epoch，第%d/%d代总体训练集准确率为：%.2f\n'</span>,<span class="built_in">i</span>,<span class="built_in">floor</span>(idx/batchSize),<span class="built_in">floor</span>(numsImgs/batchSize),accuracy);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%% 递推求误差</span></span><br><span class="line">        <span class="comment">% 求第四层误差，即最后一层误差</span></span><br><span class="line">        e4 = batchY-P;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">% 求第三层误差</span></span><br><span class="line">        delta4 = e4;</span><br><span class="line">        e3=W4'*delta4;</span><br><span class="line">        delta3=mask3.*e3;<span class="comment">% DropoutLayer求导 https://blog.csdn.net/oBrightLamp/article/details/84105097</span></span><br><span class="line">        delta3 = (Z3&gt;<span class="number">0</span>).*delta3;<span class="comment">% Relu求导</span></span><br><span class="line">        <span class="comment">% 求第二层误差</span></span><br><span class="line">        e2=W3'*delta3;</span><br><span class="line">        delta2=mask2.*e2;</span><br><span class="line">        delta2=(Z2&gt;<span class="number">0</span>).*delta2;</span><br><span class="line">        <span class="comment">% 求第一层误差</span></span><br><span class="line">        e1=W2'*delta2;</span><br><span class="line">        e1 = <span class="built_in">reshape</span>(e1,<span class="built_in">size</span>(A1));</span><br><span class="line">        avg_e = e1/<span class="number">4</span>; <span class="comment">% avg pool层求导参考 https://blog.csdn.net/qq_21190081/article/details/72871704</span></span><br><span class="line">        E1 = repelem(avg_e,<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">        delta1=(Z1&gt;<span class="number">0</span>).*E1;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">% 求取梯度并更新W1,按照CNN卷积层的误差反向传播原理https://www.cnblogs.com/pinard/p/6494810.html</span></span><br><span class="line">        [~,~,~,numFilters]=<span class="built_in">size</span>(W1);</span><br><span class="line">        <span class="keyword">for</span> idx_f =<span class="number">1</span>:numFilters</span><br><span class="line">            dW1 = <span class="built_in">zeros</span>(<span class="built_in">size</span>(W1));<span class="comment">% 9*9*1*20</span></span><br><span class="line">            <span class="keyword">for</span> idx_img = <span class="number">1</span>:bs</span><br><span class="line">                dW1(:,:,:,idx_img)=alpha* convn(batchX(:,:,:,idx_img),<span class="built_in">rot90</span>(delta1(:,:,idx_f,idx_img),<span class="number">2</span>),<span class="string">'valid'</span>);</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            dW1 = mean(dW1,<span class="number">4</span>); <span class="comment">% batch 梯度方向均值</span></span><br><span class="line">            S = <span class="built_in">size</span>(W1);S(<span class="keyword">end</span>) = <span class="number">1</span>;</span><br><span class="line">            dW1= <span class="built_in">reshape</span>(dW1,S);<span class="comment">% 保持维度</span></span><br><span class="line">            mmt1(:,:,:,idx_f)= dW1 + <span class="built_in">beta</span>*mmt1(:,:,:,idx_f);</span><br><span class="line">            W1(:,:,:,idx_f)=W1(:,:,:,idx_f) + mmt1(:,:,:,idx_f); <span class="comment">% 带动量形式的mini-batch梯度下降算法</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">% 求取梯度并更新W2,按照BP反向传播原理</span></span><br><span class="line">        dW2=alpha*delta2*y1';<span class="comment">% 因为第一层是CNN，卷积后的特征是全连接，故y1是A1的变换形式</span></span><br><span class="line">        mmt2 = dW2 + <span class="built_in">beta</span>*mmt2;</span><br><span class="line">        W2   = W2 + mmt2;</span><br><span class="line">        <span class="comment">% 求取梯度并更新W3,按照BP反向传播原理</span></span><br><span class="line">        dW3=alpha*delta3*A2';</span><br><span class="line">        mmt3 = dW3 + <span class="built_in">beta</span>*mmt3;</span><br><span class="line">        W3   = W3 + mmt3;</span><br><span class="line">        <span class="comment">% 求取梯度并更新W4,按照BP反向传播原理</span></span><br><span class="line">        dW4=alpha*delta4*A3';</span><br><span class="line">        mmt4 = dW4 + <span class="built_in">beta</span>*mmt4;</span><br><span class="line">        W4   = W4 + mmt4;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="comment">% 每个epoch完后进行保存</span></span><br><span class="line">    save([<span class="string">'model_epoch'</span>,num2str(i),<span class="string">'.mat'</span>], <span class="string">'W1'</span>,<span class="string">'W2'</span>,<span class="string">'W3'</span>,<span class="string">'W4'</span>);  </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>test.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 测试集测试</span></span><br><span class="line">load model_epoch2.mat</span><br><span class="line">imageFileNameTest = <span class="string">'G:\MNIST\t10k-images.idx3-ubyte'</span>;</span><br><span class="line">labelFileNameTest = <span class="string">'G:\MNIST\t10k-labels.idx1-ubyte'</span>;</span><br><span class="line">nClasses = <span class="number">10</span>;</span><br><span class="line">order = <span class="number">0</span>:<span class="number">9</span>;</span><br><span class="line"><span class="comment">% 预处理</span></span><br><span class="line">[X_Test,Label_Test] = processMNISTdata(imageFileNameTest,labelFileNameTest);</span><br><span class="line">Label_true = onehot(Label_Test,nClasses,order);<span class="comment">% 10*numImgs</span></span><br><span class="line"><span class="comment">% 随意查看前16个数字情况</span></span><br><span class="line">montage(X_Test(:,:,:,<span class="number">1</span>:<span class="number">16</span>))</span><br><span class="line">title([<span class="string">'Ground Truth:'</span>,num2str(Label_Test(<span class="number">1</span>:<span class="number">16</span>)<span class="string">')]);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">%% 所有样本整体准确度</span></span><br><span class="line"><span class="string">[~,~,~,numImgs] = size(X_Test);</span></span><br><span class="line"><span class="string">predict_L=Predict(W1,W2,W3,W4,X_Test);</span></span><br><span class="line"><span class="string">numCorrect = 0;</span></span><br><span class="line"><span class="string">for idx_img = 1:numImgs</span></span><br><span class="line"><span class="string">    isEqual = predict_L(:,idx_img)==Label_true(:,idx_img);</span></span><br><span class="line"><span class="string">    numCorrect = numCorrect+all(isEqual);</span></span><br><span class="line"><span class="string">end</span></span><br><span class="line"><span class="string">numAll = numImgs;</span></span><br><span class="line"><span class="string">acc = numCorrect/numAll;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">fprintf('</span>测试集整体准确率为：%<span class="number">.5</span>f\n<span class="string">',acc);</span></span><br></pre></td></tr></table></figure>
+<p>ConvLayer.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Z</span> = <span class="title">ConvLayer</span><span class="params">(imgs, W)</span></span></span><br><span class="line"><span class="comment">% 功能：对图像imgs进行卷积操作,W为卷积核</span></span><br><span class="line"><span class="comment">% 输入：imgs 待卷积的图像或特征，存储顺序为 img_height*img_width*img_channel*batchSize,</span></span><br><span class="line"><span class="comment">%            四维数组，float,[0,1]范围;</span></span><br><span class="line"><span class="comment">%      W 为卷积核,大小为 kernel_height*hernel_width*kernel_channel*out_filters,</span></span><br><span class="line"><span class="comment">%         四维数组，float类型,kernel_channel必须与img_channel相等才可以卷积!</span></span><br><span class="line"><span class="comment">% 输出：</span></span><br><span class="line"><span class="comment">%      Z为卷积后的特征图，维度大小为(img_height-kernel_height+1)*(img_width-hernl_width+1)*out_filters*batchSize</span></span><br><span class="line"><span class="comment">%        四维数组，float类型;</span></span><br><span class="line"><span class="comment">% 注意：此为图像卷积操作，边界无填充，支持多维卷积操作</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">%  author:cuixingxing 2020.1.25</span></span><br><span class="line"><span class="comment">% email:cuixingxing150@gmail.com</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"></span><br><span class="line">[img_height, img_width, img_channel,batchSize] = <span class="built_in">size</span>(imgs);</span><br><span class="line">[kernel_height, hernl_width, kernel_channel, out_filters] = <span class="built_in">size</span>(W);</span><br><span class="line">assert(kernel_channel==img_channel);</span><br><span class="line"></span><br><span class="line">Z = <span class="built_in">zeros</span>(img_height-kernel_height+<span class="number">1</span>,img_width-hernl_width+<span class="number">1</span>,out_filters,batchSize);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:batchSize</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span>:out_filters</span><br><span class="line">        W = <span class="built_in">rot90</span>(W,<span class="number">2</span>);<span class="comment">% 用convn函数做卷积需要把卷积核旋转180度,只转第一维，第二维度</span></span><br><span class="line">        Z(:,:,<span class="built_in">j</span>,<span class="built_in">i</span>) = convn(imgs(:,:,:,<span class="built_in">i</span>),W(:,:,:,<span class="built_in">j</span>),<span class="string">'valid'</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>DropoutLayer.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[out_features,mask]</span> = <span class="title">DropoutLayer</span><span class="params">(in_features, ratio)</span></span></span><br><span class="line"><span class="comment">% 功能：以ratio的比例丢弃神经元</span></span><br><span class="line"><span class="comment">% 输入：in_features,输入特征</span></span><br><span class="line"><span class="comment">%       ratio 丢弃比例，[0,1]之间</span></span><br><span class="line"><span class="comment">% 输出：out_features，输出特征,大小与in_features一致</span></span><br><span class="line"><span class="comment">%       mask，随机掩码，大小与in_features一致</span></span><br><span class="line"><span class="comment">% 参考：https://zhuanlan.zhihu.com/p/38200980</span></span><br><span class="line"><span class="comment">%      https://blog.csdn.net/oBrightLamp/article/details/84105097</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% author:cuixingxing 2020.1.27</span></span><br><span class="line"><span class="comment">% email:cuixingxing150@gmail.com</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"></span><br><span class="line">all_nums = <span class="built_in">numel</span>(in_features);</span><br><span class="line">drop_nums = <span class="built_in">round</span>(all_nums*ratio);</span><br><span class="line">idxs = randperm(all_nums,drop_nums);</span><br><span class="line">mask = <span class="built_in">ones</span>(<span class="built_in">size</span>(in_features));</span><br><span class="line">mask(idxs) = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">out_features = in_features.*mask./(<span class="number">1</span>-ratio);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>onehot.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onehotMatrix</span> = <span class="title">onehot</span><span class="params">(labels,nClasses,order)</span></span></span><br><span class="line"><span class="comment">% 产生独热编码矩阵，根据order顺序返回onehot矩阵，其中每列为一个one hot标签</span></span><br><span class="line"><span class="comment">% 输入：labels 包含所有类别标签的类别，1*nums或者nums*1单个类别或者字符向量</span></span><br><span class="line"><span class="comment">%      nClasses 包含类别总数</span></span><br><span class="line"><span class="comment">%      order 长度为numLabels的标签顺序，向量，labels中元素来自于order</span></span><br><span class="line"><span class="comment">% 输出：onehotMatrix</span></span><br><span class="line"><span class="comment">%       独热编码矩阵，nClasses*nums大小，每列中有且仅有一个1，其余为0</span></span><br><span class="line"><span class="comment">% example:</span></span><br><span class="line"><span class="comment">%  labels = [0,3,2,8];</span></span><br><span class="line"><span class="comment">%  nClasses = 10;</span></span><br><span class="line"><span class="comment">%  order = [0,1,2,3,4,5,6,7,8,9];</span></span><br><span class="line"><span class="comment">%  onehotMatrix = onehot(labels,nClasses,order);</span></span><br><span class="line"><span class="comment">%  onehotMatrix = [1  0  0  0</span></span><br><span class="line"><span class="comment">%                  0  0  0  0</span></span><br><span class="line"><span class="comment">%                  0  0  1  0</span></span><br><span class="line"><span class="comment">%                  0  1  0  0</span></span><br><span class="line"><span class="comment">%                  0  0  0  0</span></span><br><span class="line"><span class="comment">%                  0  0  0  0</span></span><br><span class="line"><span class="comment">%                  0  0  0  0</span></span><br><span class="line"><span class="comment">%                  0  0  0  0</span></span><br><span class="line"><span class="comment">%                  0  0  0  1</span></span><br><span class="line"><span class="comment">%                  0  0  0  0]</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% author:cuixingxing 2020.1.27</span></span><br><span class="line"><span class="comment">% cuixingxing150@gmail.com</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"></span><br><span class="line">assert(nClasses==<span class="built_in">length</span>(order));</span><br><span class="line">assert(all(ismember(labels,order)));</span><br><span class="line">labels = categorical(labels);</span><br><span class="line">order = categorical(order);</span><br><span class="line"></span><br><span class="line">E = <span class="built_in">eye</span>(nClasses);</span><br><span class="line">nums = <span class="built_in">numel</span>(labels);</span><br><span class="line">indexs = [];</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:nums</span><br><span class="line">    ind = <span class="built_in">find</span>(labels(<span class="built_in">i</span>)==order);</span><br><span class="line">    indexs = [indexs;ind];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">onehotMatrix = E(:,indexs);</span><br></pre></td></tr></table></figure>
+<p>PoolLayer.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span> = <span class="title">PoolLayer</span><span class="params">(in)</span></span></span><br><span class="line"><span class="comment">% 功能：2*2 平均池化层,stride = 2,pad = 0</span></span><br><span class="line"><span class="comment">% 输入：in 特征层 in_height*in_width*in_channel*batchSize,</span></span><br><span class="line"><span class="comment">%            四维数组，float;</span></span><br><span class="line"><span class="comment">% 输出：out 特征层 out_height/2*out_width/2*out_channel*batchSize,</span></span><br><span class="line"><span class="comment">%            四维数组，float;</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% 注意：out_channel == in_channel</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% author:cuixingxing 2020.1.26</span></span><br><span class="line"><span class="comment">% email:cuixingxing150@gmail.com</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line">[in_height,in_width,in_channel,batchSize] = <span class="built_in">size</span>(in);</span><br><span class="line">temp = <span class="built_in">zeros</span>(in_height<span class="number">-2</span>+<span class="number">1</span>,in_width<span class="number">-2</span>+<span class="number">1</span>,in_channel,batchSize);</span><br><span class="line">W = <span class="built_in">ones</span>(<span class="number">2</span>,<span class="number">2</span>,in_channel)/<span class="number">4</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:batchSize</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span>:in_channel</span><br><span class="line">       temp(:,:,<span class="built_in">j</span>,<span class="built_in">i</span>) = convn(in(:,:,<span class="built_in">j</span>,<span class="built_in">i</span>),W(:,:,<span class="built_in">j</span>),<span class="string">'valid'</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">out = temp(<span class="number">1</span>:<span class="number">2</span>:<span class="keyword">end</span>,<span class="number">1</span>:<span class="number">2</span>:<span class="keyword">end</span>,:,:);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>Predict.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">predict_L</span> = <span class="title">Predict</span><span class="params">(W1,W2,W3,W4,X_Test)</span></span></span><br><span class="line"><span class="comment">% 功能：计算测试集准确率</span></span><br><span class="line"><span class="comment">% 输入：W1,W2,W3,W4为网络权重矩阵</span></span><br><span class="line"><span class="comment">%      X_Test 测试数据，存储顺序为 img_height*img_width*img_channel*numImgs,</span></span><br><span class="line"><span class="comment">%            四维数组，float类型,[0,1]范围;</span></span><br><span class="line"><span class="comment">% 输出：predict_L 预测标签，onehot标签，每列为一个标签</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">%  author:cuixingxing 2020.1.27</span></span><br><span class="line"><span class="comment">% email:cuixingxing150@gmail.com</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 预处理</span></span><br><span class="line">X = X_Test; <span class="comment">% 28*28*1*numImgs， float类型，[0,1]范围</span></span><br><span class="line">[~,~,~,numImgs] = <span class="built_in">size</span>(X);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% forward</span></span><br><span class="line"><span class="comment">%% 第一层：CNN卷积+ReLULayer+池化层</span></span><br><span class="line">Z1= ConvLayer(X,W1);</span><br><span class="line">Y1=ReLULayer(Z1);</span><br><span class="line">A1 =PoolLayer(Y1);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 第二层：全连接层 ＋ReLULayer+ dropout</span></span><br><span class="line">y1=<span class="built_in">reshape</span>(A1,[],numImgs);</span><br><span class="line">Z2=W2*y1;</span><br><span class="line">Y2=ReLULayer(Z2);</span><br><span class="line"><span class="comment">% [A2,~] = DropoutLayer(Y2, 0.01);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 第三层：全连接层 ＋ ReLULayer+ dropout</span></span><br><span class="line">Z3=W3*Y2;</span><br><span class="line">Y3=ReLULayer(Z3);</span><br><span class="line"><span class="comment">% [A3,~] =  DropoutLayer(Y3, 0.01);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 第四层：全连接层+softmax</span></span><br><span class="line">Z4 = W4*Y3;</span><br><span class="line"><span class="comment">% 计算训练集准确率</span></span><br><span class="line">P = SoftmaxLayer(Z4); <span class="comment">% 10*batchSize 大小</span></span><br><span class="line">[~,ind] = max(P);</span><br><span class="line">nClasses = <span class="number">10</span>;</span><br><span class="line">order = <span class="number">0</span>:<span class="number">9</span>;</span><br><span class="line">predict_L = onehot(ind<span class="number">-1</span>,nClasses,order);</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>preProcess.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span> = <span class="title">preProcess</span><span class="params">(in)</span></span></span><br><span class="line"><span class="comment">% 功能：预处理输入图像</span></span><br><span class="line"><span class="comment">% 输入：in 为H*W*numImgs 大小，uint8类型图像</span></span><br><span class="line"><span class="comment">% 输出：out 为H*W*C*numImgs大小，float类型[0,1]范围图像,mnist数字图像，其中C=1</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line">[H,W,numImgs] = <span class="built_in">size</span>(in);</span><br><span class="line">out = im2single(in);</span><br><span class="line">out = <span class="built_in">reshape</span>(out,[H,W,<span class="number">1</span>,numImgs]);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>processMNISTdata.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[Imgs,Labels]</span> = <span class="title">processMNISTdata</span><span class="params">(imageFileName,labelFileName)</span></span></span><br><span class="line"><span class="comment">% PROCESSMNISTDATA功能：解析官方提供的二进制数字识别MNIST数据集</span></span><br><span class="line"><span class="comment">%  输入：imageFileName 解压后的图像文件名</span></span><br><span class="line"><span class="comment">%       labelFileName 解压后的标签文件名</span></span><br><span class="line"><span class="comment">% 输出：Imgs 为numRows*numCols*1*numImages 大小的float类型图像数据，[0,1]范围</span></span><br><span class="line"><span class="comment">%       Labels为numImages*1大小的double标签数据</span></span><br><span class="line"><span class="comment">% 参考：https://ww2.mathworks.cn/help/stats/visualize-high-dimensional-data-using-t-sne.html</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">%  author:cuixingxing 2020.1.25</span></span><br><span class="line"><span class="comment">% email:cuixingxing150@gmail.com</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line">[fileID,errmsg] = fopen(imageFileName,<span class="string">'r'</span>,<span class="string">'b'</span>);</span><br><span class="line"><span class="keyword">if</span> fileID &lt; <span class="number">0</span></span><br><span class="line">    error(errmsg);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="comment">% First read the magic number. This number is 2051 for image data, and</span></span><br><span class="line"><span class="comment">% 2049 for label data</span></span><br><span class="line">magicNum = fread(fileID,<span class="number">1</span>,<span class="string">'int32'</span>,<span class="number">0</span>,<span class="string">'b'</span>);</span><br><span class="line">assert(magicNum == <span class="number">2051</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="comment">% Then read the number of images, number of rows, and number of columns</span></span><br><span class="line">numImages = fread(fileID,<span class="number">1</span>,<span class="string">'int32'</span>,<span class="number">0</span>,<span class="string">'b'</span>);</span><br><span class="line">numRows = fread(fileID,<span class="number">1</span>,<span class="string">'int32'</span>,<span class="number">0</span>,<span class="string">'b'</span>);</span><br><span class="line">numCols = fread(fileID,<span class="number">1</span>,<span class="string">'int32'</span>,<span class="number">0</span>,<span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="comment">% Read the image data</span></span><br><span class="line">Imgs = fread(fileID,<span class="built_in">inf</span>,<span class="string">'unsigned char=&gt;uint8'</span>);</span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="comment">% Reshape the data to array X</span></span><br><span class="line">Imgs = <span class="built_in">reshape</span>(Imgs,numCols,numRows,numImages);</span><br><span class="line">Imgs = <span class="built_in">permute</span>(Imgs,[<span class="number">2</span> <span class="number">1</span> <span class="number">3</span>]);</span><br><span class="line">Imgs = preProcess(Imgs); <span class="comment">% 28*28*1*numImgs， float类型，[0,1]范围</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="comment">% Close the file</span></span><br><span class="line">fclose(fileID);</span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="comment">% Similarly, read the label data.</span></span><br><span class="line">[fileID,errmsg] = fopen(labelFileName,<span class="string">'r'</span>,<span class="string">'b'</span>);</span><br><span class="line"><span class="keyword">if</span> fileID &lt; <span class="number">0</span></span><br><span class="line">    error(errmsg);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">magicNum = fread(fileID,<span class="number">1</span>,<span class="string">'int32'</span>,<span class="number">0</span>,<span class="string">'b'</span>);</span><br><span class="line">assert(magicNum == <span class="number">2049</span>);</span><br><span class="line">numItems = fread(fileID,<span class="number">1</span>,<span class="string">'int32'</span>,<span class="number">0</span>,<span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">Labels = fread(fileID,<span class="built_in">inf</span>,<span class="string">'unsigned char=&gt;double'</span>);</span><br><span class="line">Labels = <span class="built_in">reshape</span>(Labels,numItems,<span class="number">1</span>);<span class="comment">% numItem*1 </span></span><br><span class="line">fclose(fileID);</span><br></pre></td></tr></table></figure>
+<p>ReLULayer.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span> = <span class="title">ReLULayer</span><span class="params">(x)</span></span></span><br><span class="line">  y = max(<span class="number">0</span>, x);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>SoftmaxLayer.m</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span> = <span class="title">SoftmaxLayer</span><span class="params">(x)</span></span></span><br><span class="line"><span class="comment">%% 功能：softmax转概率</span></span><br><span class="line"><span class="comment">% 输入：x 10*numsSamples大小矩阵</span></span><br><span class="line"><span class="comment">% 输出：y 10*numsSamples概率矩阵，每列为一个样本概率</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line">  ex = <span class="built_in">exp</span>(x);</span><br><span class="line">  y  = ex ./ sum(ex,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2><span id="reference">Reference</span></h2>
+<p><a href="https://uzshare.com/view/787051" target="_blank" rel="noopener">神经网络BP反向传播算法原理和详细推导流程</a><br>
+<a href="https://blog.csdn.net/zsfcg/article/details/21739239" target="_blank" rel="noopener">梯度下降(Gradient Descent)简析及matlab实现</a><br>
+<a href="https://blog.csdn.net/qq_21190081/article/details/72871704" target="_blank" rel="noopener">深度学习笔记（3）——CNN中一些特殊环节的反向传播</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/02/20/目标检测中AP的计算，你真的会了吗/" data-toggle="tooltip" data-placement="top" title="目标检测中AP的计算，你真的会了吗？">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/01/19/正则化理解之动态可视化/" data-toggle="tooltip" data-placement="top" title="正则化理解之动态可视化">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">网络架构设计</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">网络训练工作流程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">网络测试工作流程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">code</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Reference</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
+                        
+                          <a class="tag" href="/tags/#梯度下降" title="梯度下降">梯度下降</a>
+                        
+                          <a class="tag" href="/tags/#反向传播" title="反向传播">反向传播</a>
+                        
+                          <a class="tag" href="/tags/#数字识别" title="数字识别">数字识别</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/cuixing001" target="_blank">my CSDN blog</a></li>
+                    
+                        <li><a href="https://godweiyang.com/" target="_blank">wei yang&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://yoursite-url/2020/01/28/深度学习实战-从原理到实践/";
+    var disqus_url = "http://yoursite-url/2020/01/28/深度学习实战-从原理到实践/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<script type="text/javascript" src="/js/zooming.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/cui-xing-xing-97/activities">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/cuixing158">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/星星-崔-523744113/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; TheMatrix 2020 
+                    <br>
+                    Blog home <a href="https://cuixing158.github.io/">Cuixingxing</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>  
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

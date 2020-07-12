@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/me.jpg">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          3D卷积动作识别 - TheMatrix | star
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2019/09/01/3D卷积动作识别/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('photo.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#图像分类" title="图像分类">图像分类</a>
+                            
+                              <a class="tag" href="/tags/#3d convolution" title="3d convolution">3d convolution</a>
+                            
+                        </div>
+                        <h1>3D卷积动作识别</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by TheMatrix on
+                            2019-09-01
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">崔星星</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>3D卷积动作识别已经越来越受到关注，<a href="https://github.com/kenshohara/3D-ResNets-PyTorch" target="_blank" rel="noopener">参考</a></p>
+</blockquote>
+<h1><span id="resnet50-3d动作识别">resnet50-3d动作识别</span></h1>
+<p>本文使用resnet50-3d作为网络标准，流程如下：</p>
+<h2><span id="create-the-layer-graph">Create the Layer Graph</span></h2>
+<p>Create the layer graph variable to contain the network’s layers.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lgraph = layerGraph();</span><br></pre></td></tr></table></figure>
+<p>**Add the Layer Branches<br>
+Add the branches of the network to the layer graph. Each branch is a linear array of layers.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br></pre></td><td class="code"><pre><span class="line">tempLayers = [</span><br><span class="line">    image3dInputLayer([320 320 16 3],"Name","image3dinput")</span><br><span class="line">    convolution3dLayer([7 7 3],64,"Name","conv3d_1_1","Padding","same","Stride",[2 2 2])</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_2")</span><br><span class="line">    reluLayer("Name","relu_1")</span><br><span class="line">    maxPooling3dLayer([3 3 3],"Name","maxpool3d_1")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_3")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_4")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],64,"Name","conv3d_2")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_1")</span><br><span class="line">    reluLayer("Name","relu_2")</span><br><span class="line">    convolution3dLayer([3 3 3],64,"Name","conv3d_1_2","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_3")</span><br><span class="line">    reluLayer("Name","relu_3")</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_4")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_5")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_1")</span><br><span class="line">    reluLayer("Name","relu_4")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],64,"Name","conv3d_1_5")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_6")</span><br><span class="line">    reluLayer("Name","relu_5")</span><br><span class="line">    convolution3dLayer([3 3 3],64,"Name","conv3d_1_6","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_7")</span><br><span class="line">    reluLayer("Name","relu_6")</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_7","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_8")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_2")</span><br><span class="line">    reluLayer("Name","relu_7")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],64,"Name","conv3d_1_8")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_9")</span><br><span class="line">    reluLayer("Name","relu_8")</span><br><span class="line">    convolution3dLayer([3 3 3],64,"Name","conv3d_1_9","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_10")</span><br><span class="line">    reluLayer("Name","relu_9")</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_10")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_11")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_3")</span><br><span class="line">    reluLayer("Name","relu_10")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_14","Stride",[2 2 1])</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_15")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],128,"Name","conv3d_1_11","Stride",[2 2 1])</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_12")</span><br><span class="line">    reluLayer("Name","relu_11")</span><br><span class="line">    convolution3dLayer([3 3 3],128,"Name","conv3d_1_12","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_13")</span><br><span class="line">    reluLayer("Name","relu_12")</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_13")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_14")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_4")</span><br><span class="line">    reluLayer("Name","activation_13_relu_2")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],128,"Name","conv3d_1_15")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_16")</span><br><span class="line">    reluLayer("Name","relu_13")</span><br><span class="line">    convolution3dLayer([3 3 3],128,"Name","conv3d_1_16","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_17")</span><br><span class="line">    reluLayer("Name","relu_14")</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_17")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_18")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_5")</span><br><span class="line">    reluLayer("Name","relu_15")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],128,"Name","conv3d_1_18")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_19")</span><br><span class="line">    reluLayer("Name","relu_16")</span><br><span class="line">    convolution3dLayer([3 3 3],128,"Name","conv3d_1_19","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_20")</span><br><span class="line">    reluLayer("Name","relu_17")</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_20")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_21")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_6")</span><br><span class="line">    reluLayer("Name","relu_18")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],128,"Name","conv3d_1_21")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_22")</span><br><span class="line">    reluLayer("Name","relu_19")</span><br><span class="line">    convolution3dLayer([3 3 3],128,"Name","conv3d_1_22","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_23")</span><br><span class="line">    reluLayer("Name","relu_20")</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_23")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_24")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_7")</span><br><span class="line">    reluLayer("Name","relu_21")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],1024,"Name","conv3d_1_27","Stride",[2 2 1])</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_28")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_24","Stride",[2 2 1])</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_25")</span><br><span class="line">    reluLayer("Name","relu_22")</span><br><span class="line">    convolution3dLayer([3 3 3],256,"Name","conv3d_1_25","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_26")</span><br><span class="line">    reluLayer("Name","relu_23")</span><br><span class="line">    convolution3dLayer([1 1 1],1024,"Name","conv3d_1_26")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_27")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_8")</span><br><span class="line">    reluLayer("Name","relu_24")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_28")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_29")</span><br><span class="line">    reluLayer("Name","relu_25")</span><br><span class="line">    convolution3dLayer([3 3 3],256,"Name","conv3d_1_29","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_30")</span><br><span class="line">    reluLayer("Name","relu_26")</span><br><span class="line">    convolution3dLayer([1 1 1],1024,"Name","conv3d_1_30")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_31")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_9")</span><br><span class="line">    reluLayer("Name","relu_27")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_31")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_32")</span><br><span class="line">    reluLayer("Name","relu_28")</span><br><span class="line">    convolution3dLayer([3 3 3],256,"Name","conv3d_1_32","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_33")</span><br><span class="line">    reluLayer("Name","relu_29")</span><br><span class="line">    convolution3dLayer([1 1 1],1024,"Name","conv3d_1_33")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_34")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_10")</span><br><span class="line">    reluLayer("Name","relu_30")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_34")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_35")</span><br><span class="line">    reluLayer("Name","relu_31")</span><br><span class="line">    convolution3dLayer([3 3 3],256,"Name","conv3d_1_35","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_36")</span><br><span class="line">    reluLayer("Name","relu_32")</span><br><span class="line">    convolution3dLayer([1 1 1],1024,"Name","conv3d_1_36")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_37")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_11")</span><br><span class="line">    reluLayer("Name","relu_33")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_37")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_38")</span><br><span class="line">    reluLayer("Name","relu_34")</span><br><span class="line">    convolution3dLayer([3 3 3],256,"Name","conv3d_1_38","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_39")</span><br><span class="line">    reluLayer("Name","relu_35")</span><br><span class="line">    convolution3dLayer([1 1 1],1024,"Name","conv3d_1_39")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_40")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_12")</span><br><span class="line">    reluLayer("Name","relu_36")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],256,"Name","conv3d_1_40")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_41")</span><br><span class="line">    reluLayer("Name","relu_37")</span><br><span class="line">    convolution3dLayer([3 3 3],256,"Name","conv3d_1_41","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_42")</span><br><span class="line">    reluLayer("Name","relu_38")</span><br><span class="line">    convolution3dLayer([1 1 1],1024,"Name","conv3d_1_42")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_43")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_13")</span><br><span class="line">    reluLayer("Name","relu_39")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_43","Stride",[2 2 1])</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_44")</span><br><span class="line">    reluLayer("Name","relu_40")</span><br><span class="line">    convolution3dLayer([3 3 3],512,"Name","conv3d_1_44","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_45")</span><br><span class="line">    reluLayer("Name","relu_41")</span><br><span class="line">    convolution3dLayer([1 1 1],2048,"Name","conv3d_1_45")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_46")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],2048,"Name","conv3d_1_46","Stride",[2 2 1])</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_47")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_14")</span><br><span class="line">    reluLayer("Name","relu_42")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_47")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_48")</span><br><span class="line">    reluLayer("Name","relu_43")</span><br><span class="line">    convolution3dLayer([3 3 3],512,"Name","conv3d_1_48","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_49")</span><br><span class="line">    reluLayer("Name","relu_44")</span><br><span class="line">    convolution3dLayer([1 1 1],2048,"Name","conv3d_1_49")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_50")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_15")</span><br><span class="line">    reluLayer("Name","relu_45")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    convolution3dLayer([1 1 1],512,"Name","conv3d_1_50")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_51")</span><br><span class="line">    reluLayer("Name","relu_46")</span><br><span class="line">    convolution3dLayer([3 3 3],512,"Name","conv3d_1_51","Padding","same")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_52")</span><br><span class="line">    reluLayer("Name","relu_47")</span><br><span class="line">    convolution3dLayer([1 1 1],2048,"Name","conv3d_1_52")</span><br><span class="line">    batchNormalizationLayer("Name","batchnorm_53")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br><span class="line"></span><br><span class="line">tempLayers = [</span><br><span class="line">    additionLayer(<span class="number">2</span>,"Name","addition_16")</span><br><span class="line">    reluLayer("Name","relu_48")</span><br><span class="line">    averagePooling3dLayer([20 20 6],"Name","avgpool3d","Stride",[20 20 6])</span><br><span class="line">    fullyConnectedLayer(7,"Name","fc")</span><br><span class="line">    softmaxLayer("Name","softmax")</span><br><span class="line">    classificationLayer("Name","classoutput")];</span><br><span class="line">lgraph = addLayers(lgraph,tempLayers);</span><br></pre></td></tr></table></figure>
+<h2><span id="connect-the-layer-branches">Connect the Layer Branches</span></h2>
+<p>Connect all the branches of the network to create the network’s graph.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">lgraph = connectLayers(lgraph,"maxpool3d_1","conv3d_1_3");</span><br><span class="line">lgraph = connectLayers(lgraph,"maxpool3d_1","conv3d_2");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_4","addition_1/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_5","addition_1/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_4","conv3d_1_5");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_4","addition_2/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_8","addition_2/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_7","conv3d_1_8");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_7","addition_3/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_11","addition_3/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_10","conv3d_1_14");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_10","conv3d_1_11");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_15","addition_4/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_14","addition_4/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"activation_13_relu_2","conv3d_1_15");</span><br><span class="line">lgraph = connectLayers(lgraph,"activation_13_relu_2","addition_5/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_18","addition_5/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_15","conv3d_1_18");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_15","addition_6/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_21","addition_6/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_18","conv3d_1_21");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_18","addition_7/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_24","addition_7/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_21","conv3d_1_27");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_21","conv3d_1_24");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_28","addition_8/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_27","addition_8/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_24","conv3d_1_28");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_24","addition_9/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_31","addition_9/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_27","conv3d_1_31");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_27","addition_10/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_34","addition_10/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_30","conv3d_1_34");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_30","addition_11/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_37","addition_11/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_33","conv3d_1_37");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_33","addition_12/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_40","addition_12/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_36","conv3d_1_40");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_36","addition_13/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_43","addition_13/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_39","conv3d_1_43");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_39","conv3d_1_46");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_47","addition_14/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_46","addition_14/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_42","conv3d_1_47");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_42","addition_15/in1");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_50","addition_15/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_45","conv3d_1_50");</span><br><span class="line">lgraph = connectLayers(lgraph,"relu_45","addition_16/in2");</span><br><span class="line">lgraph = connectLayers(lgraph,"batchnorm_53","addition_16/in1");</span><br></pre></td></tr></table></figure>
+<h2><span id="clean-up-helper-variable">Clean Up Helper Variable</span></h2>
+<p>clear tempLayers;</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot(lgraph);</span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/09/25/resnet18-onnx-matlab转换/" data-toggle="tooltip" data-placement="top" title="Resnet18-Onnx-Matlab转换">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/05/26/基于OpenCV家用多摄像头监控设计/" data-toggle="tooltip" data-placement="top" title="基于OpenCV家用多摄像头监控设计">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">resnet50-3d动作识别</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Create the Layer Graph</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Connect the Layer Branches</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">Clean Up Helper Variable</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#图像分类" title="图像分类">图像分类</a>
+                        
+                          <a class="tag" href="/tags/#3d convolution" title="3d convolution">3d convolution</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/cuixing001" target="_blank">my CSDN blog</a></li>
+                    
+                        <li><a href="https://godweiyang.com/" target="_blank">wei yang&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://yoursite-url/2019/09/01/3D卷积动作识别/";
+    var disqus_url = "http://yoursite-url/2019/09/01/3D卷积动作识别/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<script type="text/javascript" src="/js/zooming.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/cui-xing-xing-97/activities">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/cuixing158">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/星星-崔-523744113/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; TheMatrix 2020 
+                    <br>
+                    Blog home <a href="https://cuixing158.github.io/">Cuixingxing</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>  
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
