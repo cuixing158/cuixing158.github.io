@@ -21,15 +21,6 @@ For convenience, only observe the output features  of the first  convolution lay
 
 
 
-```matlab:Code
-net50 = resnet50;
-inputsize = [224,224];
-img = imresize(imread('peppers.png'),inputsize);
-inputImg = dlarray(im2single(img),'SSCB');
-lg = layerGraph(net50);
-newlg = removeLayers(lg,'ClassificationLayer_fc1000');
-dlnet = dlnetwork(newlg); % take long time ???
-```
 
 
 
