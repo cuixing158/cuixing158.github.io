@@ -31,4 +31,19 @@ dlnet = dlnetwork(newlg); % take long time ???
 ![fig](image_0.png)
 <center>network</center>
 
+## simple case:
+We extract the feature named "fc1000_softmax" layer，big different features between forward_f and predict_f ?
+
+```matlab
+[forward_f,state1] = forward(dlnet,inputImg);
+[~,ind1] = max(forward_f)
+```
+
+
+```text:Output
+ind1 = 
+  1(C) x 1(B) dlarray
+   464
+```
+
 
