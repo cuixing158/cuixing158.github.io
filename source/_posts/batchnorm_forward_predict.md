@@ -314,3 +314,4 @@ ans =
 
 From the output results, it is consistent with forward, why is it not the result of predict? Excuse me, what happened?(it is  actually  "forward()" mode)
 
+<img src="https://latex.codecogs.com/gif.latex?{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;&plus;\varepsilon&space;}}" title="{x_i } =\frac{x_i -\mu_c }{\sqrt{{\sigma_c }^2 +\varepsilon }}" />
