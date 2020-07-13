@@ -44,7 +44,7 @@ We extract the feature named "fc1000_softmax" layer，big different features bet
 ```
 
 
-```text
+```text:Output
 ind1 = 
   1(C) x 1(B) dlarray
    464
@@ -57,7 +57,7 @@ ind1 =
 ```
 
 
-```text
+```text:Output
 ind2 = 
   1(C) x 1(B) dlarray
    917
@@ -70,7 +70,7 @@ activations_f = activations(net50,im2single(img),'fc1000_softmax','OutputAs','co
 ```
 
 
-```text
+```text:Output
 ind3 = 917
 ```
 
@@ -82,7 +82,7 @@ dlnet.State = state1;
 ```
 
 
-```text
+```text:Output
 ind4 = 
   1(C) x 1(B) dlarray
    665
@@ -116,7 +116,7 @@ end
 ```
 
 
-```text
+```text:Output
 ans = 
   10x10 single dlarray
    -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623
@@ -164,7 +164,7 @@ end
 ```
 
 
-```text
+```text:Output
 ans = 10x1 single column vector    
    86.4990
    88.6642
@@ -212,7 +212,7 @@ end
 ```
 
 
-```text
+```text:Output
 ans = 10x1 single column vector    
    50.6704
     1.9740
@@ -260,7 +260,7 @@ if ~all(abs(forward_features{2}-predict_features{2})<Epsilon,"all") % compare ba
 end
 ```
 
-```text
+```text:Output
 ans = 
   10x10 single dlarray
    -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623
@@ -299,7 +299,7 @@ predict_y(1:10,1:10,1)
 ```
 
 
-```text
+```text:Output
 ans = 
   10x10 single dlarray
    -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623
@@ -357,7 +357,7 @@ cal_predict_y(1:10,1:10,1)
 ```
 
 
-```text
+```text:Output
 ans = 
   10x10 single dlarray
    -7.5241    6.2765    4.6618    4.6619    4.6616    4.6637    4.6620    4.6620    4.6630    4.6622
@@ -406,7 +406,7 @@ end
 ```
 
 
-```text
+```text:Output
 ans = 10x1 single column vector    
    86.4990
    88.6642
@@ -442,7 +442,7 @@ end
 ```
 
 
-```text
+```text:Output
 ans = 10x1 single column vector    
    50.6704
     1.9740
@@ -486,7 +486,7 @@ end
 ```
 
 
-```text
+```text:Output
 ans = 10x1 single column vector    
    -3.6372
    -1.9135
