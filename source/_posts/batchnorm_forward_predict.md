@@ -371,7 +371,7 @@ The results are excellent, verifying the correctness of the above results. When 
 Let's look at a formula that is calculated and updated manually according to the formula:
 
 
-where  is the statistic computed over several mini-batches, <a href="https://www.codecogs.com/eqnedit.php?latex=s_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_x" title="s_x" /></a> is the per-channel statistic of the current mini-batch, and <a href="https://www.codecogs.com/eqnedit.php?latex=\phi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" /></a> is the decay value for the statistic.
+where  is the statistic computed over several mini-batches,  is the per-channel statistic of the current mini-batch, and  is the decay value for the statistic.
 
 
 
