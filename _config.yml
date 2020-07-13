@@ -61,7 +61,7 @@ ga_domain: yoursite
 
 # Sidebar settings
 sidebar: true                       # whether or not using Sidebar.
-sidebar-about-description: "Hi, i'm Cuixingxing\n Email:cuixingxing150@gmail\n csdn blog：https://blog.csdn.net/cuixing001"
+sidebar-about-description: "Hi, i'm Cuixingxing\n Email:cuixingxing150@gmail \n csdn-blog：https://blog.csdn.net/cuixing001"
 sidebar-avatar: img/me.jpg      # 原来是ironman-draw.png use absolute URL, seeing it's used in both `/` and `/about/`
 widgets:
 - featured-tags
