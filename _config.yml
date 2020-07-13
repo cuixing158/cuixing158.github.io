@@ -25,7 +25,7 @@ description: ""
 keyword: ""
 header-img: img/header_img/home-bg-2-dark.jpg
 signature: true #show signature
-signature-img: img/signature/myname1.jpg 
+signature-img: img/signature/myname2.jpg 
 
 
 # SNS settings
@@ -88,11 +88,20 @@ friends: [
         title: "黄博",
         href: "https://www.zhihu.com/people/fengdu78"
     },{
+        title: "卿颜",
+        href: "https://www.zhihu.com/people/tu-xing-16"
+    },{
         title: "王峰",
         href: "https://www.zhihu.com/people/wang-feng-98-82"
     },{
         title: "周博磊",
         href: "https://www.zhihu.com/people/zhou-bo-lei"
+    },{
+        title: "打浦桥程序员",
+        href: "https://www.zhihu.com/people/da-pu-qiao-cheng-xu-yuan"
+    },{
+        title: "YaqiLYU",
+        href: "https://www.zhihu.com/people/YaqiLYU"
     },{
         title: "wei yang's Blog",
         href: "https://godweiyang.com/"
