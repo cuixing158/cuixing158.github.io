@@ -237,7 +237,7 @@ ans = 10x1 single column vector
 
 ```
 There is data output, indicating different, but the data looks the same, why? 
----
+
 Than compare the difference between forward and predict
 ```matlab
 predict_features = cell(2,1);
@@ -248,7 +248,7 @@ if ~all(abs(forward_features{1}-predict_features{1})<Epsilon,"all") % compare co
 end
 ```
 No result output, indicating that the convolution operation is consistent in forward and predict results.
----
+
 ```matlab
 if ~all(abs(forward_features{2}-predict_features{2})<Epsilon,"all") % compare batchnorm features
     forward_features{2}(1:10,1:10,1)
@@ -288,7 +288,7 @@ ans =
 The problem is coming, the values of predict and forward are obviously different. So I want to test why predict is very different. Below I use batchnorm() function to execute the result of the last convolution, without entering mean and variance.
 
 
----
+
 ```matlab
 predict_y = batchnorm(forward_features{1},squeeze(bnlayer.Offset),squeeze(bnlayer.Scale));
 predict_y(1:10,1:10,1)
