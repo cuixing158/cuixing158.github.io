@@ -23,9 +23,9 @@ SEOTitle: TheMatrix | star
 email: cuixingxing150@gmail.com
 description: ""
 keyword: ""
-header-img: img/header_img/home-bg-2-dark.png
+header-img: img/header_img/home-bg-2-dark.jpg
 signature: true #show signature
-signature-img: img/signature/BeanTechSign-white.png 
+signature-img: img/signature/myname1.jpg 
 
 
 # SNS settings
@@ -61,7 +61,7 @@ ga_domain: yoursite
 
 # Sidebar settings
 sidebar: true                       # whether or not using Sidebar.
-sidebar-about-description: "Hi, i'm Cuixingxing\n Email:cuixingxing150@gmail"
+sidebar-about-description: "Hi, i'm Cuixingxing\n Email:cuixingxing150@gmail\n csdn：https://blog.csdn.net/cuixing001"
 sidebar-avatar: img/me.jpg      # 原来是ironman-draw.png use absolute URL, seeing it's used in both `/` and `/about/`
 widgets:
 - featured-tags
@@ -85,17 +85,17 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 ## Friends
 friends: [
     {
-        title: "my CSDN blog",
-        href: "https://blog.csdn.net/cuixing001"
+        title: "黄博",
+        href: "https://www.zhihu.com/people/fengdu78"
+    },{
+        title: "王峰",
+        href: "https://www.zhihu.com/people/wang-feng-98-82"
+    },{
+        title: "周博磊",
+        href: "https://www.zhihu.com/people/zhou-bo-lei"
     },{
         title: "wei yang's Blog",
         href: "https://godweiyang.com/"
-    },{
-        title: "Hux Blog",
-        href: "http://huangxuan.me"
-    },{
-        title: "It Helps SEO",
-        href: "#"
     }
 ]
 
