@@ -315,3 +315,9 @@ ans =
 From the output results, it is consistent with forward, why is it not the result of predict? Excuse me, what happened?(it is  actually  "forward()" mode)
 
 
+### **Further testing**
+
+batchnorm() is internally calculated as ,the normalized activation is calculated using the following formula:
+<a href="https://www.codecogs.com/eqnedit.php?latex=\overset{\wedge&space;}{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;&plus;\varepsilon&space;}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overset{\wedge&space;}{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;&plus;\varepsilon&space;}}" title="\overset{\wedge }{x_i } =\frac{x_i -\mu_c }{\sqrt{{\sigma_c }^2 +\varepsilon }}" /></a>
+
+
