@@ -6,23 +6,22 @@ subtitle:
 header-img: "shenzhen_zoo.jpg"
 tags: 
 - batchnorm
-- matlab
+- Basic concepts
 catagories: 
 - matlab
-- CNN
+- algorithm
 ---
     
-  
+&#160; &#160; &#160; &#160;本博客主要内容本应该是我提出的issue被广泛讨论的，所以写成英文方便国外网友讨论，后来干脆整理成了一篇博客，依旧保留了英文模式，逐步引人入思，遂成文，发之，英文表达有不妥之处，敬请谅解！ 
 > According to official instructions, "[forward](https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.forward.html)" is used for inference during the network training phase, and "[predict](https://ww2.mathworks.cn/help/deeplearning/ref/dlnetwork.predict.html)" is used for inference during the network prediction phase.But there are a large number of networks used by the batchnorm layer,the features of forward and predict are very different.
 
 
 
 
-For convenience, only observe the output features  of the first  convolution layer and bathhorm layer of resnet50,We first take the [resnet50](https://www.mathworks.com/help/deeplearning/ref/resnet50.html?s_tid=srchtitle) network provided by matlab as an example to illustrate, convert to [dlnetwork](https://www.mathworks.com/help/deeplearning/ref/dlnetwork.html?s_tid=srchtitle) and compare.
+&#160; &#160; &#160; &#160;For convenience, only observe the output features  of the first  convolution layer and bathhorm layer of resnet50,We first take the [resnet50](https://www.mathworks.com/help/deeplearning/ref/resnet50.html?s_tid=srchtitle) network provided by matlab as an example to illustrate, convert to [dlnetwork](https://www.mathworks.com/help/deeplearning/ref/dlnetwork.html?s_tid=srchtitle) and compare.
 
 
-
-```matlab:Code
+```matlab
 net50 = resnet50;
 inputsize = [224,224];
 img = imresize(imread('peppers.png'),inputsize);
@@ -36,61 +35,54 @@ dlnet = dlnetwork(newlg); % take long time ???
 <center>network</center>
 
 
-# simple case:
-
-
+## simple case:
 We extract the feature named "fc1000_softmax" layer，big different features between forward_f and predict_f ?
 
-
-
-```matlab:Code
+```matlab
 [forward_f,state1] = forward(dlnet,inputImg);
 [~,ind1] = max(forward_f)
 ```
 
 
-```text:Output
+```text
 ind1 = 
   1(C) x 1(B) dlarray
    464
 ```
 
 
-```matlab:Code
-
+```matlab
 [predict_f,state2] = predict(dlnet,inputImg);
 [~,ind2] = max(predict_f)
 ```
 
 
-```text:Output
+```text
 ind2 = 
   1(C) x 1(B) dlarray
    917
 ```
 
 
-```matlab:Code
-
+```matlab
 activations_f = activations(net50,im2single(img),'fc1000_softmax','OutputAs','columns');
 [~,ind3] = max(activations_f)
 ```
 
 
-```text:Output
+```text
 ind3 = 917
 ```
 
 
-```matlab:Code
-
+```matlab
 dlnet.State = state1;
 [predict_update_f,state4] = predict(dlnet,inputImg);
 [~,ind4] = max(predict_update_f)
 ```
 
 
-```text:Output
+```text
 ind4 = 
   1(C) x 1(B) dlarray
    665
@@ -101,15 +93,14 @@ ind4 =
 Why is forward_f and predict_f very different? Then we look at the following step by step analysis why this is so!
 
 
-# analysis:
-## **Calculate whether the output of the BN layer is consistent in two ways**
-
+## analysis:
+### **Calculate whether the output of the BN layer is consistent in two ways**
 
 forward_features{1} are convolution features, forward_features{2} are features from batchnorm.
 
 
 
-```matlab:Code
+```matlab
 Epsilon = 1e-4;
 convlayer = dlnet.Layers({dlnet.Layers.Name}=="conv1");
 bnlayer = dlnet.Layers({dlnet.Layers.Name}=="bn_conv1");
@@ -125,7 +116,7 @@ end
 ```
 
 
-```text:Output
+```text
 ans = 
   10x10 single dlarray
    -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623
@@ -164,7 +155,7 @@ Than test the mean of "forward" function and batchnorm() function update
 
 
 
-```matlab:Code
+```matlab
 temp = squeeze(state.Value{1});
 if ~all(mu==temp,"all")
     mu(1:10)
@@ -173,7 +164,7 @@ end
 ```
 
 
-```text:Output
+```text
 ans = 10x1 single column vector    
    86.4990
    88.6642
@@ -212,7 +203,7 @@ Than test the variance of "forward" function and batchnorm() function update
 
 
 
-```matlab:Code
+```matlab
 temp = squeeze(state.Value{2});
 if ~all(abs(sigmasq - temp)<Epsilon,"all")
     sigmasq(1:10)
@@ -221,7 +212,7 @@ end
 ```
 
 
-```text:Output
+```text
 ans = 10x1 single column vector    
    50.6704
     1.9740
@@ -249,20 +240,10 @@ ans = 10x1 single column vector
     0.5078
 
 ```
-
-
-
-There is data output, indicating different, but the data looks the same, why?
-
-
-  
-
-
+There is data output, indicating different, but the data looks the same, why? 
+---
 Than compare the difference between forward and predict
-
-
-
-```matlab:Code
+```matlab
 predict_features = cell(2,1);
 [predict_features{:}]= predict(dlnet,inputImg,'Outputs',{'conv1','bn_conv1'});
 if ~all(abs(forward_features{1}-predict_features{1})<Epsilon,"all") % compare conv features
@@ -270,22 +251,16 @@ if ~all(abs(forward_features{1}-predict_features{1})<Epsilon,"all") % compare co
     predict_features{1}(1:10,1:10,1)
 end
 ```
-
-
-
 No result output, indicating that the convolution operation is consistent in forward and predict results.
-
-
-
-```matlab:Code
+---
+```matlab
 if ~all(abs(forward_features{2}-predict_features{2})<Epsilon,"all") % compare batchnorm features
     forward_features{2}(1:10,1:10,1)
     predict_features{2}(1:10,1:10,1)
 end
 ```
 
-
-```text:Output
+```text
 ans = 
   10x10 single dlarray
    -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623
@@ -317,14 +292,14 @@ ans =
 The problem is coming, the values of predict and forward are obviously different. So I want to test why predict is very different. Below I use batchnorm() function to execute the result of the last convolution, without entering mean and variance.
 
 
-
-```matlab:Code
+---
+```matlab
 predict_y = batchnorm(forward_features{1},squeeze(bnlayer.Offset),squeeze(bnlayer.Scale));
 predict_y(1:10,1:10,1)
 ```
 
 
-```text:Output
+```text
 ans = 
   10x10 single dlarray
    -7.5244    6.2767    4.6619    4.6621    4.6618    4.6639    4.6621    4.6621    4.6631    4.6623
@@ -344,38 +319,26 @@ ans =
 From the output results, it is consistent with forward, why is it not the result of predict? Excuse me, what happened?(it is  actually  "forward()" mode)
 
 
-## **Further testing**
-
+### **Further testing**
 
 batchnorm() is internally calculated as ,the normalized activation is calculated using the following formula:
+<a href="https://www.codecogs.com/eqnedit.php?latex=\overset{\wedge&space;}{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;&plus;\varepsilon&space;}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overset{\wedge&space;}{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;&plus;\varepsilon&space;}}" title="\overset{\wedge }{x_i } =\frac{x_i -\mu_c }{\sqrt{{\sigma_c }^2 +\varepsilon }}" /></a>
 
 
-
-```math
-\overset{\wedge }{x_i } =\frac{x_i -\mu_c }{\sqrt{{\sigma_c }^2 +\varepsilon }}
-```
-
-
-where $x_i$ is the input activation, $\mu_c$ (`mu`) and ${\sigma_c }^2$ (`sigmaSq`) are the per-channel mean and variance, respectively, and $\varepsilon$ is a small constant.
+where <a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a> is the input activation, <a href="https://www.codecogs.com/eqnedit.php?latex=\mu_c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mu_c" title="\mu_c" /></a> (`mu`) and <a href="https://www.codecogs.com/eqnedit.php?latex={\sigma_c&space;}^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{\sigma_c&space;}^2" title="{\sigma_c }^2" /></a> (`sigmaSq`) are the per-channel mean and variance, respectively, and latex=\varepsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\varepsilon" title="\varepsilon" /></a> is a small constant.
 
 
 
 
 The normalized activation is offset and scaled according to the following formula:
+<a href="https://www.codecogs.com/eqnedit.php?latex=y_i&space;=\gamma&space;\overset{\wedge&space;}{x_i&space;}&space;&plus;\beta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y_i&space;=\gamma&space;\overset{\wedge&space;}{x_i&space;}&space;&plus;\beta" title="y_i =\gamma \overset{\wedge }{x_i } +\beta" /></a>
+
+
+The offset <a href="https://www.codecogs.com/eqnedit.php?latex=\beta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta" title="\beta" /></a> and scale factor <a href="https://www.codecogs.com/eqnedit.php?latex=\gamma" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\gamma" title="\gamma" /></a> are specified with the `offset` and `scaleFactor` arguments.
 
 
 
-```math
-y_i =\gamma \overset{\wedge }{x_i } +\beta
-```
-
-
-The offset $\beta$ and scale factor $\gamma$ are specified with the `offset` and `scaleFactor` arguments.
-
-
-
-```matlab:Code
-
+```matlab
 xi = forward_features{1};% 112×112×64×1
 mu_global = dlnet.State.Value{1}; % 1*1*64  "predict()" use
 var_global = dlnet.State.Value{2}; % 1*1*64  "predict()" use
@@ -394,7 +357,7 @@ cal_predict_y(1:10,1:10,1)
 ```
 
 
-```text:Output
+```text
 ans = 
   10x10 single dlarray
    -7.5241    6.2765    4.6618    4.6619    4.6616    4.6637    4.6620    4.6620    4.6630    4.6622
@@ -414,19 +377,14 @@ ans =
 The results are excellent, verifying the correctness of the above results. When *predict_mode*=1, *cal_predict_y *is the same as *predict_features*(2); when *predict_mode*=0, *cal_predict_y* is the same as *forward_features*(2).
 
 
-## **Calculate state quantity by formula**
+### **Calculate state quantity by formula**
 
 
 Let's look at a formula that is calculated and updated manually according to the formula:
+<a href="https://www.codecogs.com/eqnedit.php?latex=s_n&space;={\phi&space;s}_x&space;&plus;\left(1-\phi&space;\right)s_{n-1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_n&space;={\phi&space;s}_x&space;&plus;\left(1-\phi&space;\right)s_{n-1}" title="s_n ={\phi s}_x +\left(1-\phi \right)s_{n-1}" /></a>
 
 
-
-```math
-s_n ={\phi s}_x +\left(1-\phi \right)s_{n-1}
-```
-
-
-where $s_n$ is the statistic computed over several mini-batches, $s_x$ is the per-channel statistic of the current mini-batch, and $\phi$ is the decay value for the statistic.
+where <a href="https://www.codecogs.com/eqnedit.php?latex=s_n" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_n" title="s_n" /></a> is the statistic computed over several mini-batches, <a href="https://www.codecogs.com/eqnedit.php?latex=s_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_x" title="s_x" /></a> is the per-channel statistic of the current mini-batch, and <a href="https://www.codecogs.com/eqnedit.php?latex=\phi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" /></a> is the decay value for the statistic.
 
 
 
@@ -435,7 +393,7 @@ Use this syntax to iteratively update the mean and variance statistics over seve
 
 
 
-```matlab:Code
+```matlab
 decay = 0.1;
 update_mu = decay*squeeze(mu_local)+...
     (1-decay)*squeeze(bnlayer.TrainedMean);
@@ -448,7 +406,7 @@ end
 ```
 
 
-```text:Output
+```text
 ans = 10x1 single column vector    
    86.4990
    88.6642
@@ -476,7 +434,7 @@ ans =
 ```
 
 
-```matlab:Code
+```matlab
 if ~all(abs(sigmasq-update_sigmasq)<Epsilon,"all")
     sigmasq(1:10)
     update_sigmasq(1:10)
@@ -484,7 +442,7 @@ end
 ```
 
 
-```text:Output
+```text
 ans = 10x1 single column vector    
    50.6704
     1.9740
@@ -519,7 +477,7 @@ There is data output, indicating different, but the data looks the same, why? Co
 
 
 
-```matlab:Code
+```matlab
 
 if ~all(abs(update_mu-squeeze(mu_global))<Epsilon,"all")
     squeeze(mu_global(1:10))
@@ -528,7 +486,7 @@ end
 ```
 
 
-```text:Output
+```text
 ans = 10x1 single column vector    
    -3.6372
    -1.9135
@@ -560,7 +518,7 @@ ans =
 There is data output, Shows that the results are significantly different, *update_mu* is not updated to the "dlnet.state" state,So if we use "forward()" for propagation in the future, remember to assign the returned state to dlnet.state in order to keep the state updated.
 
 
-# conclusion:
+## conclusion:
 
    -  forward() stage, batchnorm() uses the parameters of the per channel mean and variance of the current sample set, and then uses the weighted cumulative form to calculate the global mean and variance. 
    -  predict() stage,  batchnorm() uses the mean and variance of the entire state of **dlnet.state** for network propagation. 
