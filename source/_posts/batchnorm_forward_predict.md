@@ -190,15 +190,7 @@ ans = 10x1 single column vector
 
 
 No result output, indicating that the mean of "forward" function is equal to  batchnorm() function update.
-
-
-  
-
-
 Than test the variance of "forward" function and batchnorm() function update
-
-
-
 ```matlab
 temp = squeeze(state.Value{2});
 if ~all(abs(sigmasq - temp)<Epsilon,"all")
@@ -322,7 +314,8 @@ From the output results, it is consistent with forward, why is it not the result
 <center></center>
 where x_i is the input activation,  μ_c(mu) and  σ²(sigmaSq) are the per-channel mean and variance, respectively, and ε is a small constant.
 The normalized activation is offset and scaled according to the following formula:
-![公式1](2.jpg)
+
+![公式2](2.jpg)
 <center></center>
 
 The offset β and scale factor γ are specified with the `offset` and `scaleFactor` arguments.
@@ -376,10 +369,6 @@ The results are excellent, verifying the correctness of the above results. When 
 <center></center>
 
 where Sn is the statistic computed over several mini-batches, Sx is the per-channel statistic of the current mini-batch, and Ø is the decay value for the statistic.
-
-
-
-
 &#160; &#160; &#160; &#160;Use this syntax to iteratively update the mean and variance statistics over several mini-batches of data during training. Use the final value of the mean and variance computed over all training mini-batches to normalize data for prediction and classification.
 
 
