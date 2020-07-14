@@ -32,7 +32,7 @@ dlnet = dlnetwork(newlg); % take long time ???
 <center>network</center>
 
 ## simple case:
-We extract the feature named "fc1000_softmax" layer，big different features between forward_f and predict_f ?
+&#160; &#160; &#160; &#160;We extract the feature named "fc1000_softmax" layer，big different features between forward_f and predict_f ?
 
 ```matlab
 [forward_f,state1] = forward(dlnet,inputImg);
@@ -92,7 +92,7 @@ Why is forward_f and predict_f very different? Then we look at the following ste
 ## analysis:
 ### **Calculate whether the output of the BN layer is consistent in two ways**
 
-forward_features{1} are convolution features, forward_features{2} are features from batchnorm.
+&#160; &#160; &#160; &#160;forward_features{1} are convolution features, forward_features{2} are features from batchnorm.
 
 
 
@@ -317,15 +317,15 @@ From the output results, it is consistent with forward, why is it not the result
 
 ### **Further testing**
 
-batchnorm() is internally calculated as ,the normalized activation is calculated using the following formula:
+&#160; &#160; &#160; &#160;batchnorm() is internally calculated as ,the normalized activation is calculated using the following formula:
 ![公式1](1.jpg)
 <center></center>
-
+where x_i is the input activation,  μ_c(mu) and  σ²(sigmaSq) are the per-channel mean and variance, respectively, and ε is a small constant.
 The normalized activation is offset and scaled according to the following formula:
 ![公式1](2.jpg)
 <center></center>
 
-The offset  are specified with the `offset` and `scaleFactor` arguments.
+The offset β and scale factor γ are specified with the `offset` and `scaleFactor` arguments.
 
 
 
@@ -365,22 +365,22 @@ ans =
 
 
 
-The results are excellent, verifying the correctness of the above results. When *predict_mode*=1, *cal_predict_y *is the same as *predict_features*(2); when *predict_mode*=0, *cal_predict_y* is the same as *forward_features*(2).
+The results are excellent, verifying the correctness of the above results. When *predict_mode*=1, *cal_predict_y* is the same as *predict_features*(2); when *predict_mode*=0, *cal_predict_y* is the same as *forward_features*(2).
 
 
 ### **Calculate state quantity by formula**
 
 
-Let's look at a formula that is calculated and updated manually according to the formula:
+&#160; &#160; &#160; &#160;Let's look at a formula that is calculated and updated manually according to the formula:
 ![公式1](3.jpg)
 <center></center>
 
-where  is the statistic computed over several mini-batches,  is the per-channel statistic of the current mini-batch, and  is the decay value for the statistic.
+where Sn is the statistic computed over several mini-batches, Sx is the per-channel statistic of the current mini-batch, and Ø is the decay value for the statistic.
 
 
 
 
-Use this syntax to iteratively update the mean and variance statistics over several mini-batches of data during training. Use the final value of the mean and variance computed over all training mini-batches to normalize data for prediction and classification.
+&#160; &#160; &#160; &#160;Use this syntax to iteratively update the mean and variance statistics over several mini-batches of data during training. Use the final value of the mean and variance computed over all training mini-batches to normalize data for prediction and classification.
 
 
 
