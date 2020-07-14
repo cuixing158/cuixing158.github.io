@@ -318,9 +318,10 @@ From the output results, it is consistent with forward, why is it not the result
 ### **Further testing**
 
 batchnorm() is internally calculated as ,the normalized activation is calculated using the following formula:
+<a href="https://www.codecogs.com/eqnedit.php?latex=\overset{\wedge&space;}{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;&plus;\varepsilon&space;}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overset{\wedge&space;}{x_i&space;}&space;=\frac{x_i&space;-\mu_c&space;}{\sqrt{{\sigma_c&space;}^2&space;&plus;\varepsilon&space;}}" title="\overset{\wedge }{x_i } =\frac{x_i -\mu_c }{\sqrt{{\sigma_c }^2 +\varepsilon }}" /></a>
 
 The normalized activation is offset and scaled according to the following formula:
-
+<a href="https://www.codecogs.com/eqnedit.php?latex=y_i&space;=\gamma&space;\overset{\wedge&space;}{x_i&space;}&space;&plus;\beta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y_i&space;=\gamma&space;\overset{\wedge&space;}{x_i&space;}&space;&plus;\beta" title="y_i =\gamma \overset{\wedge }{x_i } +\beta" /></a>
 
 The offset  are specified with the `offset` and `scaleFactor` arguments.
 
