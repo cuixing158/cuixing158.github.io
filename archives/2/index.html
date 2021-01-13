@@ -69,13 +69,13 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/home-bg-2-dark.png') 
+            background-image: url('/img/header_img/home-bg-2-dark.jpg') 
             /*config*/
         
     }
     
     #signature{
-        background-image: url('/img/signature/BeanTechSign-white.png');
+        background-image: url('/img/signature/myname2.jpg');
     }
     
 </style>
@@ -213,6 +213,174 @@
 
 <div class="post-preview">
 
+    <a href="/2019/09/01/3D卷积动作识别/">
+        <h2 class="post-title">
+            3D卷积动作识别
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+3D卷积动作识别已经越来越受到关注，参考
+
+resnet50-3d动作识别
+本文使用resnet50-3d作为网络标准，流程如下：
+Create the Layer Graph
+Create the layer graph variable to contain the network’s layers.
+1lgraph = layerGraph();
+**Add the Layer Br......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2019-09-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#图像分类" title="图像分类">图像分类</a>
+            
+              <a href="/tags/#3d convolution" title="3d convolution">3d convolution</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/05/26/基于OpenCV家用多摄像头监控设计/">
+        <h2 class="post-title">
+            基于OpenCV家用多摄像头监控设计
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+本篇博客主要针对家用多个摄像头监控入侵检测的问题，若有外人移动，则应把相应时刻图像抓取本地保存，但对于多个摄像头，不大可能用N个循环进行交替进行检测，这里主要用到多线程技术，每个相机创建一个线程单独进行监控，互不干扰，算法较简单，但较实用。从输出的nCounter可以看出那个相机采像较快。
+
+1234567891011121314151617181920212223242526272829......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2019-05-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#c++" title="c++">c++</a>
+            
+              <a href="/tags/#多线程" title="多线程">多线程</a>
+            
+              <a href="/tags/#图像算法" title="图像算法">图像算法</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/25/C++中使用Pytorch模型2/">
+        <h2 class="post-title">
+            C++中使用Pytorch模型2
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+Pytorch能够非常方便的进行各种深度模型的搭建和实验，但在部署方面（C++环境下）仍然有很多坑需要踩，随着官方1.0的公布，越来越多的功能趋于完善稳定，为了能够独立在C++项目环境中使用pytorch，官方提供了Libtorch库，需要简单配置后可以非常方便的使用，现记录其配置过程，方便日后少踩坑再次使用。（官方提供的一个示例需要CMake编译源文件为项目文件然后使用，可参看我的上篇文......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2019-01-25
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#c++" title="c++">c++</a>
+            
+              <a href="/tags/#pytorch" title="pytorch">pytorch</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/11/25/C++中使用Pytorch模型1/">
+        <h2 class="post-title">
+            C++中使用Pytorch模型1
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+最近pytorch官方更新了稳定版本的1.0版本，相较于0.4版本，主要改进在于部署方面，这次参考官方给的示例程序（https://pytorch.org/tutorials/advanced/cpp_export.html），在Windows 平台，VS2015环境下搭建了环境，成功在C++中使用，现做如下记录：
+
+       根据官方描述，在pytorch中训练好的模型要在C++中使......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2018-11-25
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#c++" title="c++">c++</a>
+            
+              <a href="/tags/#pytorch" title="pytorch">pytorch</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/10/10/lstm-activity/">
+        <h2 class="post-title">
+            LSTM动作识别
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.7999992370605px; min-height: 0px; white-space: p......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2018-10-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#动作分类" title="动作分类">动作分类</a>
+            
+              <a href="/tags/#LSTM" title="LSTM">LSTM</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/10/05/pytorch图像分类/">
         <h2 class="post-title">
             Pytorch图像分类
@@ -323,13 +491,15 @@ I publish the whole project f......
     <div class="tags">
         
             
-            <a href="/tags/#pytorch" title="pytorch" rel="3">pytorch</a>
-            
-        
-            
             <a href="/tags/#c++" title="c++" rel="6">c++</a>
             
         
+            
+            <a href="/tags/#多线程" title="多线程" rel="2">多线程</a>
+            
+        
+            
+            <a href="/tags/#pytorch" title="pytorch" rel="3">pytorch</a>
             
         
             
@@ -349,9 +519,31 @@ I publish the whole project f......
             
         
             
+            <a href="/tags/#深度学习" title="深度学习" rel="3">深度学习</a>
+            
+        
+            
+            <a href="/tags/#梯度下降" title="梯度下降" rel="2">梯度下降</a>
+            
         
             
             <a href="/tags/#图像分类" title="图像分类" rel="2">图像分类</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -376,7 +568,8 @@ I publish the whole project f......
 
         
             <p>Hi, i&#39;m Cuixingxing
- Email:cuixingxing150@gmail</p>
+ Email:cuixingxing150@gmail
+ my csdn blog：https://blog.csdn.net/cuixing001</p>
         
 
         <!-- SNS Link -->
@@ -431,23 +624,23 @@ I publish the whole project f......
     <ul>
       
         <li>
-          <a href="/2020/01/19/正则化理解之动态可视化/">正则化理解之动态可视化</a>
+          <a href="/2020/12/30/重新思考anchor box估计/">重新思考Anchor Box估计</a>
         </li>
       
         <li>
-          <a href="/2020/01/07/洞察分类网络激活热力图/">洞察分类网络激活热力图</a>
+          <a href="/2020/07/11/batchnorm_forward_predict/">Why Are the Features Obtained by &quot;Predict&quot; and &quot;Forward&quot; Function Very Different?</a>
         </li>
       
         <li>
-          <a href="/2019/10/18/基于OpenCV的图像对比度拉伸/">基于OpenCV的图像对比度拉伸</a>
+          <a href="/2020/04/03/带动量的随机梯度下降算法-从原理到实践/">带动量的随机梯度下降算法-从原理到实践</a>
         </li>
       
         <li>
-          <a href="/2019/10/16/C++多线程函数异步执行微观/">C++多线程函数之异步执行微观</a>
+          <a href="/2020/02/20/目标检测中AP的计算，你真的会了吗/">目标检测中AP的计算，你真的会了吗？</a>
         </li>
       
         <li>
-          <a href="/2019/09/25/resnet18-onnx-matlab转换/">Resnet18-Onnx-Matlab转换</a>
+          <a href="/2020/01/28/深度学习实战-从原理到实践/">深度学习实战-从原理到实践</a>
         </li>
       
     </ul>
@@ -461,13 +654,19 @@ I publish the whole project f......
 <ul class="list-inline">
 
     
-        <li><a href="https://blog.csdn.net/cuixing001" target="_blank">my CSDN blog</a></li>
+        <li><a href="https://www.zhihu.com/people/fengdu78" target="_blank">黄博</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/tu-xing-16" target="_blank">卿颜</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/wang-feng-98-82" target="_blank">王峰</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/zhou-bo-lei" target="_blank">周博磊</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/da-pu-qiao-cheng-xu-yuan" target="_blank">打浦桥程序员</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/YaqiLYU" target="_blank">YaqiLYU</a></li>
     
         <li><a href="https://godweiyang.com/" target="_blank">wei yang&#39;s Blog</a></li>
-    
-        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-    
-        <li><a href="#" target="_blank">It Helps SEO</a></li>
     
 </ul>
 
@@ -528,7 +727,7 @@ I publish the whole project f......
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; TheMatrix 2020 
+                    Copyright &copy; TheMatrix 2021 
                     <br>
                     Blog home <a href="https://cuixing158.github.io/">Cuixingxing</a> 
                     <span style="display: inline-block; margin: 0 5px;">

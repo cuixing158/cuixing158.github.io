@@ -69,13 +69,13 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/home-bg-2-dark.png') 
+            background-image: url('/img/header_img/home-bg-2-dark.jpg') 
             /*config*/
         
     }
     
     #signature{
-        background-image: url('/img/signature/BeanTechSign-white.png');
+        background-image: url('/img/signature/myname2.jpg');
     }
     
 </style>
@@ -213,6 +213,174 @@
 
 <div class="post-preview">
 
+    <a href="/2020/12/30/重新思考anchor box估计/">
+        <h2 class="post-title">
+            重新思考Anchor Box估计
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+anchorBox估计是目标检测中非常经典的一个概念，首次在fasterRCNN中被提出，后续目标检测器如（SSD,YOLOv2/v3/v4）等都会借用这么一个好用的东西，其优势在于能提供更快的检测速度（一次计算图像中所有的预测）和解决目标多尺度问题。anchor可以翻译成“锚”，是能与实际的检测框最相似的东东，但如何得到这个“最相似”呢？下面本博客会逐渐介绍kmeans算法估计ancho......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2020-12-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#kmeans" title="kmeans">kmeans</a>
+            
+              <a href="/tags/#anchorBox" title="anchorBox">anchorBox</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2020/07/11/batchnorm_forward_predict/">
+        <h2 class="post-title">
+            Why Are the Features Obtained by "Predict" and "Forward" Function Very Different?
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+                   本博客主要内容本应该是我提出的issue被广泛讨论的，所以写成英文方便国外网友讨论，后来干脆整理成了一篇博客，依旧保留了英文模式，逐步引人入思，遂成文，发之，英文表达有不妥之处，敬请谅解！
+
+According to official instructions, “forward” is used for inference during the network trainin......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2020-07-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#batchnorm" title="batchnorm">batchnorm</a>
+            
+              <a href="/tags/#Basic concepts" title="Basic concepts">Basic concepts</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2020/04/03/带动量的随机梯度下降算法-从原理到实践/">
+        <h2 class="post-title">
+            带动量的随机梯度下降算法-从原理到实践
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Stochastic Gradient Descent
+       大家都知道标准的随机梯度下降算法通过在每次迭代中沿Loss的负梯度方向采取小步长来更新网络参数（权重和偏差）以最小化损耗函数,更新为：
+
+其中l是迭代数，α&gt; 0是学习率，θ是参数向量，E（θ）是损失函数。 在标准梯度下降算法中，使用整个训练集评估损失函数的梯度）E（θ），而标准梯度下降算法立即使用整个数据集。相比之......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2020-04-03
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#深度学习" title="深度学习">深度学习</a>
+            
+              <a href="/tags/#梯度下降" title="梯度下降">梯度下降</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2020/02/20/目标检测中AP的计算，你真的会了吗/">
+        <h2 class="post-title">
+            目标检测中AP的计算，你真的会了吗？
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+本文直接跳过前面若干基础概念，前提需弄懂TP,FP,FN,TN,精确率，召回率，IOU等，具体可以参照文后Reference，下面进入正题，边讲述边实现，拒绝只谈不做和只做不谈。相比前人代码，本实现思路简洁，通用有效，最后根据官方现成函数计算AP进行对比。
+
+一、引言案例
+加载groundTruth数据和某算法预测的目标检测框
+1load calmAP.mat % 包含检测值和ground......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2020-02-20
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#深度学习" title="深度学习">深度学习</a>
+            
+              <a href="/tags/#目标检测" title="目标检测">目标检测</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2020/01/28/深度学习实战-从原理到实践/">
+        <h2 class="post-title">
+            深度学习实战-从原理到实践
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+现当今机器学习/深度学习技术在某些具体垂直领域已被大量广泛应用到现实世界中，已经不再像前几年那么“火热”，与之对应的各类深度学习框架也是“百花齐放,百家争鸣”，框架终究只是个工具，不过简化了从“零”开始复杂繁琐的工作，让很多普通人都可以快速入门。本博客不单纯完成一个任务，也不涉及过多理论推导，而是真正体会到算法工作一步步原理，逐步实现，岂不乐乎？
+
+本篇博客以经典的MNIST手写数字识别为......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2020-01-28
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#深度学习" title="深度学习">深度学习</a>
+            
+              <a href="/tags/#梯度下降" title="梯度下降">梯度下降</a>
+            
+              <a href="/tags/#反向传播" title="反向传播">反向传播</a>
+            
+              <a href="/tags/#数字识别" title="数字识别">数字识别</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2020/01/19/正则化理解之动态可视化/">
         <h2 class="post-title">
             正则化理解之动态可视化
@@ -257,7 +425,8 @@
             
 深度神经网络经常被当作“黑盒”，网络预测为什么是那样，很少有直观的解释，但是依靠CAM（Class Activation Mapping）可以可视化网络的最后一层激活值，对网络预测的类别区域进行热力图分析，看出网络到底学到了图片的那部分内容。
 
-为了洞察网络预测分类到底“学习”到了什么，本示例通过USB摄像头实时采集图像，分析分类网络激活类别的热力图，越红的区域代表网络学习的特征越强，以s......
+squeezenet预测
+为了洞察网络预测分类到底“学习”到了什么，本示例通过USB摄像头实时采集图像，分析分类网络激活类别的热力图，越红的区域代......
         </div>
     </a>
     
@@ -382,172 +551,6 @@ matlab识别。结论：转换识别成功
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/09/01/3D卷积动作识别/">
-        <h2 class="post-title">
-            3D卷积动作识别
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-3D卷积动作识别已经越来越受到关注，参考
-
-resnet50-3d动作识别
-本文使用resnet50-3d作为网络标准，流程如下：
-Create the Layer Graph
-Create the layer graph variable to contain the network’s layers.
-1lgraph = layerGraph();
-**Add the Layer Br......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by TheMatrix on
-            2019-09-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#图像分类" title="图像分类">图像分类</a>
-            
-              <a href="/tags/#3d convolution" title="3d convolution">3d convolution</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/05/26/基于OpenCV家用多摄像头监控设计/">
-        <h2 class="post-title">
-            基于OpenCV家用多摄像头监控设计
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-本篇博客主要针对家用多个摄像头监控入侵检测的问题，若有外人移动，则应把相应时刻图像抓取本地保存，但对于多个摄像头，不大可能用N个循环进行交替进行检测，这里主要用到多线程技术，每个相机创建一个线程单独进行监控，互不干扰，算法较简单，但较实用。从输出的nCounter可以看出那个相机采像较快。
-
-1234567891011121314151617181920212223242526272829......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by TheMatrix on
-            2019-05-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#c++" title="c++">c++</a>
-            
-              <a href="/tags/#图像算法" title="图像算法">图像算法</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/25/C++中使用Pytorch模型2/">
-        <h2 class="post-title">
-            C++中使用Pytorch模型2
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-Pytorch能够非常方便的进行各种深度模型的搭建和实验，但在部署方面（C++环境下）仍然有很多坑需要踩，随着官方1.0的公布，越来越多的功能趋于完善稳定，为了能够独立在C++项目环境中使用pytorch，官方提供了Libtorch库，需要简单配置后可以非常方便的使用，现记录其配置过程，方便日后少踩坑再次使用。（官方提供的一个示例需要CMake编译源文件为项目文件然后使用，可参看我的上篇文......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by TheMatrix on
-            2019-01-25
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#pytorch" title="pytorch">pytorch</a>
-            
-              <a href="/tags/#c++" title="c++">c++</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/11/25/C++中使用Pytorch模型1/">
-        <h2 class="post-title">
-            C++中使用Pytorch模型1
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-最近pytorch官方更新了稳定版本的1.0版本，相较于0.4版本，主要改进在于部署方面，这次参考官方给的示例程序（https://pytorch.org/tutorials/advanced/cpp_export.html），在Windows 平台，VS2015环境下搭建了环境，成功在C++中使用，现做如下记录：
-
-       根据官方描述，在pytorch中训练好的模型要在C++中使......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by TheMatrix on
-            2018-11-25
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#pytorch" title="pytorch">pytorch</a>
-            
-              <a href="/tags/#c++" title="c++">c++</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/10/10/lstm-activity/">
-        <h2 class="post-title">
-            LSTM动作识别
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.7999992370605px; min-height: 0px; white-space: p......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by TheMatrix on
-            2018-10-10
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#动作分类" title="动作分类">动作分类</a>
-            
-              <a href="/tags/#LSTM" title="LSTM">LSTM</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -584,13 +587,15 @@ Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30
     <div class="tags">
         
             
-            <a href="/tags/#pytorch" title="pytorch" rel="3">pytorch</a>
-            
-        
-            
             <a href="/tags/#c++" title="c++" rel="6">c++</a>
             
         
+            
+            <a href="/tags/#多线程" title="多线程" rel="2">多线程</a>
+            
+        
+            
+            <a href="/tags/#pytorch" title="pytorch" rel="3">pytorch</a>
             
         
             
@@ -610,9 +615,31 @@ Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30
             
         
             
+            <a href="/tags/#深度学习" title="深度学习" rel="3">深度学习</a>
+            
+        
+            
+            <a href="/tags/#梯度下降" title="梯度下降" rel="2">梯度下降</a>
+            
         
             
             <a href="/tags/#图像分类" title="图像分类" rel="2">图像分类</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -637,7 +664,8 @@ Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30
 
         
             <p>Hi, i&#39;m Cuixingxing
- Email:cuixingxing150@gmail</p>
+ Email:cuixingxing150@gmail
+ my csdn blog：https://blog.csdn.net/cuixing001</p>
         
 
         <!-- SNS Link -->
@@ -692,23 +720,23 @@ Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30
     <ul>
       
         <li>
-          <a href="/2020/01/19/正则化理解之动态可视化/">正则化理解之动态可视化</a>
+          <a href="/2020/12/30/重新思考anchor box估计/">重新思考Anchor Box估计</a>
         </li>
       
         <li>
-          <a href="/2020/01/07/洞察分类网络激活热力图/">洞察分类网络激活热力图</a>
+          <a href="/2020/07/11/batchnorm_forward_predict/">Why Are the Features Obtained by &quot;Predict&quot; and &quot;Forward&quot; Function Very Different?</a>
         </li>
       
         <li>
-          <a href="/2019/10/18/基于OpenCV的图像对比度拉伸/">基于OpenCV的图像对比度拉伸</a>
+          <a href="/2020/04/03/带动量的随机梯度下降算法-从原理到实践/">带动量的随机梯度下降算法-从原理到实践</a>
         </li>
       
         <li>
-          <a href="/2019/10/16/C++多线程函数异步执行微观/">C++多线程函数之异步执行微观</a>
+          <a href="/2020/02/20/目标检测中AP的计算，你真的会了吗/">目标检测中AP的计算，你真的会了吗？</a>
         </li>
       
         <li>
-          <a href="/2019/09/25/resnet18-onnx-matlab转换/">Resnet18-Onnx-Matlab转换</a>
+          <a href="/2020/01/28/深度学习实战-从原理到实践/">深度学习实战-从原理到实践</a>
         </li>
       
     </ul>
@@ -722,13 +750,19 @@ Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30
 <ul class="list-inline">
 
     
-        <li><a href="https://blog.csdn.net/cuixing001" target="_blank">my CSDN blog</a></li>
+        <li><a href="https://www.zhihu.com/people/fengdu78" target="_blank">黄博</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/tu-xing-16" target="_blank">卿颜</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/wang-feng-98-82" target="_blank">王峰</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/zhou-bo-lei" target="_blank">周博磊</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/da-pu-qiao-cheng-xu-yuan" target="_blank">打浦桥程序员</a></li>
+    
+        <li><a href="https://www.zhihu.com/people/YaqiLYU" target="_blank">YaqiLYU</a></li>
     
         <li><a href="https://godweiyang.com/" target="_blank">wei yang&#39;s Blog</a></li>
-    
-        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-    
-        <li><a href="#" target="_blank">It Helps SEO</a></li>
     
 </ul>
 
@@ -789,7 +823,7 @@ Sequence-to-Sequence Classification Using Deep Learning.rtcContent { padding: 30
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; TheMatrix 2020 
+                    Copyright &copy; TheMatrix 2021 
                     <br>
                     Blog home <a href="https://cuixing158.github.io/">Cuixingxing</a> 
                     <span style="display: inline-block; margin: 0 5px;">
