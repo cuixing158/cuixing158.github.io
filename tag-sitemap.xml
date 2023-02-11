@@ -4,28 +4,42 @@
 
     <url>
         <loc>http://yoursite-url/tags/anchorBox/</loc>
-        <lastmod>2023-02-11T02:01:11.200Z</lastmod>
+        <lastmod>2023-02-11T02:51:51.763Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite-url/tags/kmeans/</loc>
-        <lastmod>2023-02-11T02:01:11.200Z</lastmod>
+        <lastmod>2023-02-11T02:51:51.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/%E5%9B%BE%E5%83%8F%E7%AE%97%E6%B3%95/</loc>
+        <lastmod>2023-02-11T02:51:51.762Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/c/</loc>
+        <lastmod>2023-02-11T02:51:51.762Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite-url/tags/Basic-concepts/</loc>
-        <lastmod>2020-07-14T14:26:31.391Z</lastmod>
+        <lastmod>2023-02-11T02:51:51.741Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite-url/tags/batchnorm/</loc>
-        <lastmod>2020-07-14T14:26:31.391Z</lastmod>
+        <lastmod>2023-02-11T02:51:51.741Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -40,20 +54,6 @@
     <url>
         <loc>http://yoursite-url/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
         <lastmod>2020-07-13T15:55:39.347Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/tags/%E5%9B%BE%E5%83%8F%E7%AE%97%E6%B3%95/</loc>
-        <lastmod>2020-07-12T14:00:04.093Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/tags/c/</loc>
-        <lastmod>2020-07-12T14:00:04.093Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
