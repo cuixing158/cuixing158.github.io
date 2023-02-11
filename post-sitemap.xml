@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2020/12/30/%E9%87%8D%E6%96%B0%E6%80%9D%E8%80%83anchor%20box%E4%BC%B0%E8%AE%A1/</loc>
+        <lastmod>2023-02-11T02:01:11.200Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2020/07/11/batchnorm_forward_predict/</loc>
         <lastmod>2020-07-14T14:26:31.391Z</lastmod>
         <changefreq>weekly</changefreq>

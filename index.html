@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,37 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/12/30/重新思考anchor box估计/">
+        <h2 class="post-title">
+            重新思考Anchor Box估计
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+anchorBox估计是目标检测中非常经典的一个概念，首次在fasterRCNN中被提出，后续目标检测器如（SSD,YOLOv2/v3/v4）等都会借用这么一个好用的东西，其优势在于能提供更快的检测速度（一次计算图像中所有的预测）和解决目标多尺度问题。anchor可以翻译成“锚”，是能与实际的检测框最相似的东东，但如何得到这个“最相似”呢？下面本博客会逐渐介绍kmeans算法估计ancho......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by TheMatrix on
+            2020-12-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#kmeans" title="kmeans">kmeans</a>
+            
+              <a href="/tags/#anchorBox" title="anchorBox">anchorBox</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -520,44 +551,6 @@ matlab识别。结论：转换识别成功
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/09/01/3D卷积动作识别/">
-        <h2 class="post-title">
-            3D卷积动作识别
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-3D卷积动作识别已经越来越受到关注，参考
-
-resnet50-3d动作识别
-本文使用resnet50-3d作为网络标准，流程如下：
-Create the Layer Graph
-Create the layer graph variable to contain the network’s layers.
-1lgraph = layerGraph();
-**Add the Layer Br......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by TheMatrix on
-            2019-09-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#图像分类" title="图像分类">图像分类</a>
-            
-              <a href="/tags/#3d convolution" title="3d convolution">3d convolution</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -594,6 +587,12 @@ Create the layer graph variable to contain the network’s layers.
     <div class="tags">
         
             
+            <a href="/tags/#图像分类" title="图像分类" rel="2">图像分类</a>
+            
+        
+            
+        
+            
             <a href="/tags/#pytorch" title="pytorch" rel="3">pytorch</a>
             
         
@@ -610,17 +609,11 @@ Create the layer graph variable to contain the network’s layers.
             
         
             
-            <a href="/tags/#图像分类" title="图像分类" rel="2">图像分类</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
             <a href="/tags/#onnx" title="onnx" rel="2">onnx</a>
+            
+        
+            
+        
             
         
             
@@ -637,6 +630,10 @@ Create the layer graph variable to contain the network’s layers.
         
             
             <a href="/tags/#梯度下降" title="梯度下降" rel="2">梯度下降</a>
+            
+        
+            
+        
             
         
             
@@ -723,6 +720,10 @@ Create the layer graph variable to contain the network’s layers.
     <ul>
       
         <li>
+          <a href="/2020/12/30/重新思考anchor box估计/">重新思考Anchor Box估计</a>
+        </li>
+      
+        <li>
           <a href="/2020/07/11/batchnorm_forward_predict/">Why Are the Features Obtained by &quot;Predict&quot; and &quot;Forward&quot; Function Very Different?</a>
         </li>
       
@@ -736,10 +737,6 @@ Create the layer graph variable to contain the network’s layers.
       
         <li>
           <a href="/2020/01/28/深度学习实战-从原理到实践/">深度学习实战-从原理到实践</a>
-        </li>
-      
-        <li>
-          <a href="/2020/01/19/正则化理解之动态可视化/">正则化理解之动态可视化</a>
         </li>
       
     </ul>
@@ -826,7 +823,7 @@ Create the layer graph variable to contain the network’s layers.
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; TheMatrix 2020 
+                    Copyright &copy; TheMatrix 2023 
                     <br>
                     Blog home <a href="https://cuixing158.github.io/">Cuixingxing</a> 
                     <span style="display: inline-block; margin: 0 5px;">
