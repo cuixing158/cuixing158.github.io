@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2020/07/11/batchnorm_forward_predict/</loc>
+        <lastmod>2023-10-09T11:54:31.851Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2020/12/30/%E9%87%8D%E6%96%B0%E6%80%9D%E8%80%83anchor%20box%E4%BC%B0%E8%AE%A1/</loc>
         <lastmod>2023-02-11T02:51:51.763Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -18,14 +26,6 @@
     <url>
         <loc>http://yoursite-url/2020/01/19/%E6%AD%A3%E5%88%99%E5%8C%96%E7%90%86%E8%A7%A3%E4%B9%8B%E5%8A%A8%E6%80%81%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
         <lastmod>2023-02-11T02:51:51.762Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2020/07/11/batchnorm_forward_predict/</loc>
-        <lastmod>2023-02-11T02:51:51.741Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
