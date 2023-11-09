@@ -218,10 +218,8 @@
 
                 <h2><span id="stochastic-gradient-descent">Stochastic Gradient Descent</span></h2>
 <p>       大家都知道标准的随机梯度下降算法通过在每次迭代中沿Loss的负梯度方向采取小步长来更新网络参数（权重和偏差）以最小化损耗函数,更新为：</p>
-<p>$$<br>
-\theta_{l+1}=\theta_{l}-\alpha\Delta E(\theta_{l})<br>
-$$</p>
-<p>其中l是迭代数，$ \alpha&gt;0$是学习率，$\theta$ 是参数向量，E（θ）是损失函数。 在标准梯度下降算法中，使用整个训练集评估损失函数的梯度 $E(\theta_{l})$，而标准梯度下降算法立即使用整个数据集。相比之下，在每次迭代中，随机梯度下降算法会使用训练数据的子集评估梯度并更新参数。 每次迭代使用一个不同的子集，称为mini-baches。 训练算法在整个训练集中使用小批量通过整个训练集是一个epoch。 随机梯度下降是随机的，因为使用小批量计算的参数更新是由于使用完整数据集而导致的参数更新的嘈杂估计。</p>
+<p><a href="https://www.codecogs.com/eqnedit.php?latex=\theta_{l&plus;1}=&space;\theta_{l}-\alpha&space;\Delta&space;E\left&space;(&space;\theta_{l}&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_{l&plus;1}=&space;\theta_{l}-\alpha&space;\Delta&space;E\left&space;(&space;\theta_{l}&space;\right&space;)" title="\theta_{l+1}= \theta_{l}-\alpha \Delta E\left ( \theta_{l} \right )"></a></p>
+<p>其中l是迭代数，α&gt; 0是学习率，θ是参数向量，E（θ）是损失函数。 在标准梯度下降算法中，使用整个训练集评估损失函数的梯度）E（θ），而标准梯度下降算法立即使用整个数据集。相比之下，在每次迭代中，随机梯度下降算法会使用训练数据的子集评估梯度并更新参数。 每次迭代使用一个不同的子集，称为mini-baches。 训练算法在整个训练集中使用小批量通过整个训练集是一个epoch。 随机梯度下降是随机的，因为使用小批量计算的参数更新是由于使用完整数据集而导致的参数更新的嘈杂估计。</p>
 <h2><span id="stochastic-gradient-descent-with-momentum">Stochastic Gradient Descent with Momentum</span></h2>
 <p>       随机梯度下降算法可以沿最速下降路径向最优路径振荡。 在参数更新中添加动量项是减少这种振荡的一种方法， 具有动量的随机梯度下降（SGDM）更新为：<br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_{l&plus;1}=&space;\theta_{l}-\alpha&space;\Delta&space;E\left&space;(&space;\theta_{l}&space;\right&space;)&plus;\gamma&space;\left&space;(\theta_{l}-\theta_{l-1}&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_{l&plus;1}=&space;\theta_{l}-\alpha&space;\Delta&space;E\left&space;(&space;\theta_{l}&space;\right&space;)&plus;\gamma&space;\left&space;(\theta_{l}-\theta_{l-1}&space;\right&space;)" title="\theta_{l+1}= \theta_{l}-\alpha \Delta E\left ( \theta_{l} \right )+\gamma \left (\theta_{l}-\theta_{l-1} \right )"></a><br>

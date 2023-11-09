@@ -4,14 +4,14 @@
 
     <url>
         <loc>http://yoursite-url/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</loc>
-        <lastmod>2023-11-09T14:38:26.972Z</lastmod>
+        <lastmod>2023-11-09T15:00:33.532Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite-url/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
-        <lastmod>2023-11-09T14:38:26.972Z</lastmod>
+        <lastmod>2023-11-09T15:00:33.532Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -87,13 +87,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/onnx/</loc>
-        <lastmod>2023-11-09T14:29:18.412Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite-url/tags/Basic-concepts/</loc>
         <lastmod>2023-11-09T14:29:18.412Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -102,6 +95,13 @@
 
     <url>
         <loc>http://yoursite-url/tags/batchnorm/</loc>
+        <lastmod>2023-11-09T14:29:18.412Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/onnx/</loc>
         <lastmod>2023-11-09T14:29:18.412Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
