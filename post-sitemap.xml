@@ -8,8 +8,8 @@
     </url>
 
     <url>
-        <loc>http://yoursite-url/2020/07/11/batchnorm_forward_predict/</loc>
-        <lastmod>2023-10-09T11:54:31.851Z</lastmod>
+        <loc>http://yoursite-url/2020/04/03/%E5%B8%A6%E5%8A%A8%E9%87%8F%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95-%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</loc>
+        <lastmod>2023-11-09T14:38:26.972Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -17,23 +17,7 @@
 
     <url>
         <loc>http://yoursite-url/2020/12/30/%E9%87%8D%E6%96%B0%E6%80%9D%E8%80%83anchor%20box%E4%BC%B0%E8%AE%A1/</loc>
-        <lastmod>2023-02-11T02:51:51.763Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2020/01/19/%E6%AD%A3%E5%88%99%E5%8C%96%E7%90%86%E8%A7%A3%E4%B9%8B%E5%8A%A8%E6%80%81%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
-        <lastmod>2023-02-11T02:51:51.762Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2020/04/03/%E5%B8%A6%E5%8A%A8%E9%87%8F%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95-%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</loc>
-        <lastmod>2020-07-13T15:55:39.347Z</lastmod>
+        <lastmod>2023-11-09T14:29:18.460Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -41,7 +25,7 @@
 
     <url>
         <loc>http://yoursite-url/2020/02/20/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%B8%ADAP%E7%9A%84%E8%AE%A1%E7%AE%97%EF%BC%8C%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BC%9A%E4%BA%86%E5%90%97/</loc>
-        <lastmod>2020-07-12T07:14:42.788Z</lastmod>
+        <lastmod>2023-11-09T14:29:18.458Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -49,7 +33,23 @@
 
     <url>
         <loc>http://yoursite-url/2020/01/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</loc>
-        <lastmod>2020-07-12T07:14:42.775Z</lastmod>
+        <lastmod>2023-11-09T14:29:18.453Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2020/01/07/%E6%B4%9E%E5%AF%9F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E6%BF%80%E6%B4%BB%E7%83%AD%E5%8A%9B%E5%9B%BE/</loc>
+        <lastmod>2023-11-09T14:29:18.442Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2020/01/19/%E6%AD%A3%E5%88%99%E5%8C%96%E7%90%86%E8%A7%A3%E4%B9%8B%E5%8A%A8%E6%80%81%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+        <lastmod>2023-11-09T14:29:18.438Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -57,7 +57,7 @@
 
     <url>
         <loc>http://yoursite-url/2019/10/18/%E5%9F%BA%E4%BA%8EOpenCV%E7%9A%84%E5%9B%BE%E5%83%8F%E5%AF%B9%E6%AF%94%E5%BA%A6%E6%8B%89%E4%BC%B8/</loc>
-        <lastmod>2020-07-12T07:14:42.530Z</lastmod>
+        <lastmod>2023-11-09T14:29:18.433Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -65,7 +65,23 @@
 
     <url>
         <loc>http://yoursite-url/2019/05/26/%E5%9F%BA%E4%BA%8EOpenCV%E5%AE%B6%E7%94%A8%E5%A4%9A%E6%91%84%E5%83%8F%E5%A4%B4%E7%9B%91%E6%8E%A7%E8%AE%BE%E8%AE%A1/</loc>
-        <lastmod>2020-07-12T07:14:42.515Z</lastmod>
+        <lastmod>2023-11-09T14:29:18.430Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2019/10/16/C++%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E6%89%A7%E8%A1%8C%E5%BE%AE%E8%A7%82/</loc>
+        <lastmod>2023-11-09T14:29:18.412Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2020/07/11/batchnorm_forward_predict/</loc>
+        <lastmod>2023-11-09T14:29:18.412Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -73,7 +89,31 @@
 
     <url>
         <loc>http://yoursite-url/2019/09/25/resnet18-onnx-matlab%E8%BD%AC%E6%8D%A2/</loc>
-        <lastmod>2020-07-12T07:14:42.502Z</lastmod>
+        <lastmod>2023-11-09T14:29:18.412Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2019/01/25/C++%E4%B8%AD%E4%BD%BF%E7%94%A8Pytorch%E6%A8%A1%E5%9E%8B2/</loc>
+        <lastmod>2023-11-09T14:29:18.396Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2018/11/25/C++%E4%B8%AD%E4%BD%BF%E7%94%A8Pytorch%E6%A8%A1%E5%9E%8B1/</loc>
+        <lastmod>2023-11-09T14:29:18.384Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2019/09/01/3D%E5%8D%B7%E7%A7%AF%E5%8A%A8%E4%BD%9C%E8%AF%86%E5%88%AB/</loc>
+        <lastmod>2023-11-09T14:29:18.381Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -98,46 +138,6 @@
     <url>
         <loc>http://yoursite-url/2017/03/18/hexo-theme-beantech/</loc>
         <lastmod>2020-07-12T07:14:42.433Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2019/10/16/C++%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E6%89%A7%E8%A1%8C%E5%BE%AE%E8%A7%82/</loc>
-        <lastmod>2020-07-12T07:14:42.430Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2019/01/25/C++%E4%B8%AD%E4%BD%BF%E7%94%A8Pytorch%E6%A8%A1%E5%9E%8B2/</loc>
-        <lastmod>2020-07-12T07:14:42.406Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2018/11/25/C++%E4%B8%AD%E4%BD%BF%E7%94%A8Pytorch%E6%A8%A1%E5%9E%8B1/</loc>
-        <lastmod>2020-07-12T07:14:42.391Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2019/09/01/3D%E5%8D%B7%E7%A7%AF%E5%8A%A8%E4%BD%9C%E8%AF%86%E5%88%AB/</loc>
-        <lastmod>2020-07-12T07:14:42.384Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2020/01/07/%E6%B4%9E%E5%AF%9F%E5%88%86%E7%B1%BB%E7%BD%91%E7%BB%9C%E6%BF%80%E6%B4%BB%E7%83%AD%E5%8A%9B%E5%9B%BE/</loc>
-        <lastmod>2020-07-12T07:01:33.667Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
